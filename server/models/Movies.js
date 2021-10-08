@@ -4,7 +4,7 @@ const dateFormat = require('../utils/dateFormat');
 const moviesSchema = new Schema({
   title: {
     type: String,
-    required: 'You need a title',
+    required: 'You need a movie title',
     trim: true,
   },
   director: {
