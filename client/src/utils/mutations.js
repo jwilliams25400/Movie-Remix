@@ -39,12 +39,11 @@ export const ADD_Movie = gql`
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
+  mutation addComment($movieId: ID!, $commentText: String!) {
+    addComment(movieId: $movieId, commentText: $commentText) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      title
+      director
       comments {
         _id
         commentText
