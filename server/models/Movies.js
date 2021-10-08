@@ -1,23 +1,15 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const thoughtSchema = new Schema({
-  thoughtText: {
+const moviesSchema = new Schema({
+  title: {
     type: String,
-    required: 'You need to leave a thought!',
-    minlength: 1,
-    maxlength: 280,
+    required: 'You need a title',
     trim: true,
   },
-  thoughtAuthor: {
+  director: {
     type: String,
-    required: true,
     trim: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
   },
   comments: [
     {
@@ -40,6 +32,6 @@ const thoughtSchema = new Schema({
   ],
 });
 
-const Thought = model('Thought', thoughtSchema);
+const Movies = model('Movies', moviesSchema);
 
-module.exports = Thought;
+module.exports = Movies;
