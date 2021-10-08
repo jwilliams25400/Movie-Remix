@@ -6,20 +6,19 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    thoughts: [Thought]!
+    movie: [Movie]!
   }
 
-  type Thought {
+  type Movie {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
+    title: String!
+    director: String
+    comments: [Comment]
   }
 
   type Comment {
     _id: ID
-    commentText: String
+    commentText: String!
     commentAuthor: String
     createdAt: String
   }
@@ -32,8 +31,8 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    thoughts(username: String): [Thought]
-    thought(thoughtId: ID!): Thought
+    movies(username: String): [Movie]
+    movie(titleId: ID!): Movie
     me: User
   }
 
