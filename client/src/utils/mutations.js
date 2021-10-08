@@ -24,13 +24,12 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!) {
-    addThought(thoughtText: $thoughtText) {
+export const ADD_Movie = gql`
+  mutation addMovie($title: String!) {
+    addMovie(title: $title) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      title
+      director
       comments {
         _id
         commentText
