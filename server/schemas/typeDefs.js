@@ -31,7 +31,7 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    movies(username: String): [Movie]
+    movies(title: String): [Movie]
     movie(titleId: ID!): Movie
     me: User
   }
@@ -42,7 +42,7 @@ const typeDefs = gql`
     addMovie(title: String!): Movie
     addComment(movieId: ID!, commentText: String!): Movie
     removeMovie(movieId: ID!): Movie
-    removeComment(thoughtId: ID!, commentId: ID!): Movie
+    removeComment(movieId: ID!, commentId: ID!): Movie
   }
 `;
 

@@ -10,12 +10,12 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('movies');
     },
-    thoughts: async (parent, { username }) => {
+    movies: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+      return Movies.find(params);
     },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    movie: async (parent, { titleId }) => {
+      return Movies.findOne({ _id: titleId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -48,26 +48,27 @@ const resolvers = {
 
       return { token, user };
     },
-    addThought: async (parent, { thoughtText }, context) => {
-      if (context.user) {
-        const thought = await Thought.create({
-          thoughtText,
-          thoughtAuthor: context.user.username,
-        });
+    //TODO **********************************
+    // addMovie: async (parent, { title }, context) => {
+    //   if (context.user) {
+    //     const title = await Movie.create({
+    //       thoughtText,
+    //       thoughtAuthor: context.user.username,
+    //     });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { thoughts: thought._id } }
-        );
+    //     await User.findOneAndUpdate(
+    //       { _id: context.user._id },
+    //       { $addToSet: { thoughts: thought._id } }
+    //     );
 
-        return thought;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    addComment: async (parent, { thoughtId, commentText }, context) => {
+    //     return thought;
+    //   }
+    //   throw new AuthenticationError('You need to be logged in!');
+    // },
+    addComment: async (parent, { movieId, commentText }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Movie.findOneAndUpdate(
+          { _id: movieId },
           {
             $addToSet: {
               comments: { commentText, commentAuthor: context.user.username },
@@ -81,16 +82,16 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    removeThought: async (parent, { thoughtId }, context) => {
+    removeMovie: async (parent, { movieId }, context) => {
       if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
+        const movie = await movie.findOneAndDelete({
+          _id: movieId,
+          director: context.user.username,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
+          { $pull: { movie: movie._id } }
         );
 
         return thought;
@@ -99,8 +100,8 @@ const resolvers = {
     },
     removeComment: async (parent, { thoughtId, commentId }, context) => {
       if (context.user) {
-        return Thought.findOneAndUpdate(
-          { _id: thoughtId },
+        return Movie.findOneAndUpdate(
+          { _id: movieId },
           {
             $pull: {
               comments: {
