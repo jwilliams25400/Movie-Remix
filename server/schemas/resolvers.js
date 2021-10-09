@@ -52,16 +52,15 @@ const resolvers = {
     // addMovie: async (parent, { title }, context) => {
     //   if (context.user) {
     //     const title = await Movie.create({
-    //       thoughtText,
-    //       thoughtAuthor: context.user.username,
+    //       title,
     //     });
 
     //     await User.findOneAndUpdate(
     //       { _id: context.user._id },
-    //       { $addToSet: { thoughts: thought._id } }
+    //       { $addToSet: { movies: movie._id } }
     //     );
 
-    //     return thought;
+    //     return movie;
     //   }
     //   throw new AuthenticationError('You need to be logged in!');
     // },
@@ -86,7 +85,7 @@ const resolvers = {
       if (context.user) {
         const movie = await movie.findOneAndDelete({
           _id: movieId,
-          director: context.user.username,
+          director: context.user.username,// dont think we need this 
         });
 
         await User.findOneAndUpdate(
@@ -94,7 +93,7 @@ const resolvers = {
           { $pull: { movie: movie._id } }
         );
 
-        return thought;
+        return movie;
       }
       throw new AuthenticationError('You need to be logged in!');
     },

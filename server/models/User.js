@@ -19,7 +19,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  movie: [
+  movies: [/*[Movie.schema] th */
     {
       type: Schema.Types.ObjectId,
       ref: 'Movies',
@@ -27,6 +27,7 @@ const userSchema = new Schema({
   ],
 });
 
+// setup pre-saved midleware to create password
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -36,6 +37,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
+//compare the incoming password with the hased password
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
