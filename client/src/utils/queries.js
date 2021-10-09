@@ -6,33 +6,32 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
+      Movie {
         _id
-        thoughtText
-        createdAt
+        title
+        director
       }
     }
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
+export const QUERY_MOVIES = gql`
+  query movies($title: String!){
+   movie(title: $title) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      title
+      director
     }
-  }
+    }
+  
 `;
 
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
+export const QUERY_SINGLE_MOVIE = gql`
+  query getSingleMovie($movieId: ID!) {
+    movie(movieId: $movieId) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      title
+      director
       comments {
         _id
         commentText
@@ -49,11 +48,16 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      thoughts {
+      movie {
         _id
-        thoughtText
-        thoughtAuthor
-        createdAt
+        title
+        director
+        comments {
+          _id
+          commentText
+          commentAuthor
+          createdAt
+        }
       }
     }
   }
