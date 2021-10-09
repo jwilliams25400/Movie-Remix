@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    movie: [Movie]!
+    movies: [Movie]!
   }
 
   type Movie {
