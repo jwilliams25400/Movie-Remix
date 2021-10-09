@@ -19,10 +19,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  movies: [/*[Movie.schema] th */
+  movie: [/*[Movie.schema] th */
     {
       type: Schema.Types.ObjectId,
-      ref: 'Movies',
+      ref: 'Movie',
     },
   ],
 });
