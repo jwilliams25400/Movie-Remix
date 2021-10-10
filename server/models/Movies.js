@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const moviesSchema = new Schema({
+const movieSchema = new Schema({
   title: {
     type: String,
     required: 'You need a movie title',
@@ -32,6 +32,6 @@ const moviesSchema = new Schema({
   ],
 });
 
-const Movies = model('Movies', moviesSchema);
+const Movie = model('Movie', movieSchema);
 
-module.exports = Movies;
+module.exports = Movie;
