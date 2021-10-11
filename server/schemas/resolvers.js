@@ -48,25 +48,25 @@ const resolvers = {
 
       return { token, user };
     },
-    //TODO **********************************
-    // addMovie: async (parent, { title }, context) => {
-    //   if (context.user) {
-    //     const title = await Movie.create({
-    //       title,
-    //     });
+    // TODO **********************************
+    addMovie: async (parent, { title }, context) => {
+      if (context.user) {
+        const title = await Movies.create({
+          title,
+        });
 
-    //     await User.findOneAndUpdate(
-    //       { _id: context.user._id },
-    //       { $addToSet: { movies: movie._id } }
-    //     );
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $addToSet: { movies: movie._id } }
+        );
 
-    //     return movie;
-    //   }
-    //   throw new AuthenticationError('You need to be logged in!');
-    // },
+        return movie;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
     addComment: async (parent, { movieId, commentText }, context) => {
       if (context.user) {
-        return Movie.findOneAndUpdate(
+        return Movies.findOneAndUpdate(
           { _id: movieId },
           {
             $addToSet: {
@@ -83,7 +83,7 @@ const resolvers = {
     },
     removeMovie: async (parent, { movieId }, context) => {
       if (context.user) {
-        const movie = await movie.findOneAndDelete({
+        const movie = await Movies.findOneAndDelete({
           _id: movieId,
           director: context.user.username,// dont think we need this 
         });
@@ -99,7 +99,7 @@ const resolvers = {
     },
     removeComment: async (parent, { thoughtId, commentId }, context) => {
       if (context.user) {
-        return Movie.findOneAndUpdate(
+        return Movies.findOneAndUpdate(
           { _id: movieId },
           {
             $pull: {
