@@ -1,23 +1,23 @@
 [
   {
-    "Title": "The Matrix",
-    "Director": "Lana Wachowski, Lilly Wachowski"
+    "title": "The Matrix",
+    "director": "Lana Wachowski, Lilly Wachowski"
   },
   {
-    "Title": "Batman",
-    "Director": "Tim Burton"
+    "title": "Batman",
+    "director": "Tim Burton"
   },
   {
-    "Title": "Final Destination",
-    "Director": "James Wong"
+    "title": "Final Destination",
+    "director": "James Wong"
   },
   {
-    "Title": "Deja vu",
-    "Director": "Tony Scott"
+    "title": "Deja vu",
+    "director": "Tony Scott"
   },
   {
-    "Title": "Independence Day",
-    "Director": "Roland Emmerich"
+    "title": "Independence Day",
+    "director": "Roland Emmerich"
   }
 
 ]
