@@ -12,13 +12,13 @@ function MovieDetails(props) {
                     style={{ margin: '0 auto' }}
                 />
 
-                <button
+                {/* <button
                     onClick={props.handleFormSubmit}
                     className="btn btn-primary"
                     type="sumbit"
                 >
                 Save Movie
-                </button>
+                </button> */}
 
                 <h3>Director(s): {props.director}</h3>
                 <h3>Genre: {props.genre}</h3>
