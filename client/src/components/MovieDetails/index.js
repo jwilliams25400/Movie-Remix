@@ -1,4 +1,7 @@
 import React from 'react';
+import DETAILAPI from '../../utils/DETAILAPI';
+import YOUTUBEAPI from '../../utils/YOUTUBEAPI';
+
 
 
 function MovieDetails(props) {
