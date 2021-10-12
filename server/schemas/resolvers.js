@@ -51,16 +51,16 @@ const resolvers = {
     // TODO **********************************
     addMovie: async (parent, { title }, context) => {
       if (context.user) {
-        const title = await Movies.create({
+        let movieTitle = await Movies.create({
           title,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { movies: movie._id } }
+          { $addToSet: { movies: movies._id } }
         );
 
-        return movie;
+        return movieTitle;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
