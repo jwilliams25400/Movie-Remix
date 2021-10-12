@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+
+import Auth from "../../utils/auth";
+import { OMDBKEY, NAMESOFAPIS } from "../../utils/API";
+
 
 
 function SearchedMovies () {
