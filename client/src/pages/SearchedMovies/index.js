@@ -11,6 +11,9 @@ const SearchedMovies = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
+  const [addMovieTitle, setAddMovieTitle] = useState
+  (getAddMovieTitle());
+
   const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
   const handleFormSubmit = async (event) => {
@@ -41,9 +44,10 @@ const SearchedMovies = () => {
     }
   };
 
-  const handleSaveMovie = async (movieId) => {
+  const handleSaveMovie = async (title) => {
+
     const moviesToSave = searchedMovies.find(
-      (movie) => movie.movieTitle === movieTitle
+      (movie) => movie.title === title
     );
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -106,6 +110,9 @@ const SearchedMovies = () => {
                       />
                     ) : null}
                   </div>
+                  <button onClick={() => handleSaveMovie(movie.movie.title)}>
+                    {saveMovie?.some((saveMovie))}
+                  </button>
                 </div>
               );
             })}
