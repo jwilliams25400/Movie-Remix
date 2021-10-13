@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import search from '../../utils/POSTERAPI';
 
 import Auth from "../../utils/auth";
-import { POSTERAPI } from "../../utils/POSTERAPI";
+import { useMutation} from "@apollo/client";
+import { SAVE_MOVIE } from '../../utils/mutations';
 
  const SearchedMovies = () => {
 
@@ -10,16 +11,44 @@ import { POSTERAPI } from "../../utils/POSTERAPI";
 
   const [searchInput, setSearchInput ] = useState('');
   
-  
+  const [addMovie, {error}] = useMutation(ADD_MOVIE);
+
   
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    
+    if(!searchInput) {
+      return("Please enter a movie title")
+    }
+    
+    try{
+      const response = await fetch(POSTERAPI(searchInput));
+      
+      if (!response) {
+        throw new Error("unable to find movie");
+      }
+      
+      const { item } = await response.json();
+      
+      const movieData = items.map((movie) => ({
+        title: informatiomn.Search[i].Title,
+        poster: movies.Search[i].Poster
+      }));
+      
+      setSearchMovies(movieData);
+      setSearchInput("");
+    } catch (err) {
+      console.log("unable to load movies")
+    }
+  };
+  
+
   
   searchMovies = (query) => {
     console.log(query);
-    search.()POSTERAPI.search(query)
-    .then(res => this.setState({ result: res.data }))
+    search(query)
+    .then(res => this.setState({ result: res.data.data }))
     .catch(err => console.log(err));
   };
   
@@ -31,22 +60,9 @@ import { POSTERAPI } from "../../utils/POSTERAPI";
     });
   };
 
-  if(!searchInput) {
-    return("Please enter a movie title")
-  }
 
-  try{
-    const response = await POSTERAPI(searchInput);
     
-    if (!response) {
-      throw new Error("unable to find movie");
-    }
-    const { item } = await response.json();
 
-    const movieData = items.map((movie) => ({
-      title: information.Search[i]
-    }))
-  }
 
 
 
@@ -57,6 +73,7 @@ import { POSTERAPI } from "../../utils/POSTERAPI";
         <div className="search-movie container" >
             <div className="row movie">
               <div className="col s6 m7 l12">
+                
                 <div className="card-holder">
                   <div className="title-holder">
                     <h8>Title goes here</h8>
@@ -74,7 +91,6 @@ import { POSTERAPI } from "../../utils/POSTERAPI";
   }
   
   
-};
 };
   
 

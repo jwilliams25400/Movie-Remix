@@ -12,7 +12,7 @@ const typeDefs = gql`
   type Movie {
     _id: ID
     title: String!
-    director: String
+    poster: String
     comments: [Comment]
   }
 
