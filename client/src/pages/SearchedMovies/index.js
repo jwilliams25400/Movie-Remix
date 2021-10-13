@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { searchAPI } from "../../utils/POSTERAPI";
+import { SearchForm } from "../../components/SearchForm";
 
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
@@ -29,7 +30,7 @@ const SearchedMovies = () => {
       const { items } = await response.json();
 
       const movieData = items.map((movie) => ({
-        title: informatiomn.Search[i].Title,
+        title: items.Search[i].Title,
         poster: movie.Search[i].Poster,
       }));
 
@@ -59,8 +60,34 @@ const SearchedMovies = () => {
     }
   };
 
-    return (
+  return (
+    <>
+      <div className="jumbotron fuild">
+        <div className="container">
+          <h1>Search for Movies!</h1>
+          <form className="row" onSubmit={handleFormSubmit}>
+            <div className="col-md-5">
+              <input
+                className="form-control"
+                type="text"
+                size="lg"
+                placeholder="Search for a movie"
+                value={searchInput}
+              />
+              <div className="col-12">
+                <buton type="submit" class="btn btn-primary">
+                  Search
+                </buton>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    
       <div className="search-movie container">
+        <h3>
+          {searchedMovies.length ? `Viewing ${searchedMovies.lenght} Movies:` : "Search for a movie to begin"}
+        </h3>
         <div className="row movie">
           <div className="col s6 m7 l12">
             <div className="card-holder">
@@ -74,7 +101,8 @@ const SearchedMovies = () => {
           </div>
         </div>
       </div>
-    );
-};
+    </>
+    )     
+  };
 
 export default SearchedMovies;
