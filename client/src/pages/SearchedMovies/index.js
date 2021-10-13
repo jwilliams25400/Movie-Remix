@@ -117,26 +117,3 @@ const SearchedMovies = () => {
 };
 
 export default SearchedMovies;
-{
-  /*
-             <div className="card" >{movie.poster ? (
-             <img src={movie.poster} alt={movie.title}
-             />
-             ): null} 
-              </div>
-              );
-              }
-             </div>
-              </div>
-              */
-}
-
-{
-  /* <div className="title-holder">
-           <h6>{movie.title}</h6>
-         </div>
-        
-         <div className="card-body">
-           <div className="align-content-center img-display"></div>
-         </div> */
-}
