@@ -5,8 +5,10 @@ import { SearchForm } from "../../components/SearchForm";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { SAVE_MOVIE } from "../../utils/mutations";
+import { saveTitle, getSaveMovieTitle } from "../../utils/localStorage";
 
-const SearchedMovies = () => {
+const SearchMovies = () => {
+
   const [searchedMovies, setSearchMovies] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
@@ -15,6 +17,10 @@ const SearchedMovies = () => {
   (getAddMovieTitle());
 
   const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
+
+  useEffect(() => {
+    return() => addMovieTitle(addMovieTitle);
+  })
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -123,4 +129,4 @@ const SearchedMovies = () => {
   );
 };
 
-export default SearchedMovies;
+export default SearchMovies;
