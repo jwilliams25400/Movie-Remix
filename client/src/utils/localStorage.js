@@ -1,30 +1,30 @@
 export const getSaveMovieTitle = () => {
-  const saveMovie = localStorage.getItem('save_movie')
+  const saveTitle = localStorage.getItem('save_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : [];
 
-  return saveMovie;
+  return saveTitle;
 };
 
-export const saveMovieTitle = (movieTitleArr) => {
-  if (movieTitleArr.length) {
-    localStorage.setItem('save_movie', JSON.stringify(movieTitleArr));
+export const saveTitle = (titleArr) => {
+  if (titleArr.length) {
+    localStorage.setItem('save_movie', JSON.stringify(titleArr));
   } else {
     localStorage.removeItem('save_movie');
   }
 };
 
-export const removeMovieId = (title) => {
-  const saveMovieTitle = localStorage.getItem('saved_movie')
+export const removeTitle = (title) => {
+  const saveTitle = localStorage.getItem('save_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : null;
 
-  if (!saveMovieTitle) {
+  if (!saveTitle) {
     return false;
   }
 
-  const updatedSaveMovieTitle= saveMovieTitle?.filter((saveMovieTitle) => saveMovieTitle !== title);
-  localStorage.setItem('save_movie', JSON.stringify(updatedSaveMovieTitle));
+  const updatedSaveTitle= saveTitle?.filter((saveTitle) => saveTitle !== title);
+  localStorage.setItem('save_movie', JSON.stringify(updatedSaveTitle));
 
   return true;
 };
