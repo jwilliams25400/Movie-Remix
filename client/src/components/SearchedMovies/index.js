@@ -11,7 +11,7 @@ import { SAVE_MOVIE } from '../../utils/mutations';
 
   const [searchInput, setSearchInput ] = useState('');
   
-  const [addMovie, {error}] = useMutation(ADD_MOVIE);
+  const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
 
   
   
