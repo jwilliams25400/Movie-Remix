@@ -3,7 +3,7 @@ export const getSaveMovieIds = () => {
     ? JSON.parse(localStorage.getItem('save_movie'))
     : [];
 
-  return savedMovieIds;
+  return saveMovieIds;
 };
 
 export const saveMovieIds = (movieIdArr) => {
@@ -14,7 +14,7 @@ export const saveMovieIds = (movieIdArr) => {
   }
 };
 
-export const removeMovieId = (bookId) => {
+export const removeMovieId = (movieId) => {
   const savedMovieIds = localStorage.getItem('saved_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : null;

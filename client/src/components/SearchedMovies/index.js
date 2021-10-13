@@ -41,24 +41,26 @@ import { SAVE_MOVIE } from '../../utils/mutations';
     } catch (err) {
       console.log("unable to load movies")
     }
-  };
-  
+  };  
 
   
-  searchMovies = (query) => {
-    console.log(query);
-    search(query)
-    .then(res => this.setState({ result: res.data.data }))
-    .catch(err => console.log(err));
-  };
+  // searchMovies = (query) => {
+  //   console.log(query);
+  //   search(query)
+  //   .then(res => this.setState({ result: res.data.data }))
+  //   .catch(err => console.log(err));
+  // };
   
-  handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
-    this.setState({
-      [name]: value
-    });
-  };
+  // handleInputChange = event => {
+  //   const value = event.target.value;
+  //   const name = event.target.name;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
+  // const handleSaveMovie = async (movieId) => [
+  //   const 
+  // ] 
 
 
     
