@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import Auth from '../../utils/auth';
 import DETAILAPI from '../../utils/DETAILAPI';
 import YOUTUBEAPI from '../../utils/YOUTUBEAPI';
 import {useMutation} from '@apollo/client';
 import {SAVE_MOVIE} from '../../utils/mutations'
+
+const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
 
 function MovieDetails(props) {
     return (

@@ -29,7 +29,7 @@ export const SAVE_MOVIE = gql`
     addMovie(title: $title) {
       _id
       title
-      director
+      poster
       comments {
         _id
         commentText
@@ -43,7 +43,7 @@ export const REMOVE_MOVIE = gql`
     removeMovie(movieId: $movieId) {
       _id
       title
-      director
+      poster
       comments {
         _id
         commentText
@@ -57,7 +57,7 @@ export const ADD_COMMENT = gql`
     addComment(movieId: $movieId, commentText: $commentText) {
       _id
       title
-      director
+      poster
       comments {
         _id
         commentText
@@ -72,7 +72,7 @@ export const REMOVE_COMMENT = gql`
     removeComment(movieID: $movieId, commentId: $commentId) {
       -id
       title
-      director
+      poster
       comments {
         _id
         commentText
