@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
-import Auth from '../../utils/auth';
-import DETAILAPI from '../../utils/DETAILAPI';
-import YOUTUBEAPI from '../../utils/YOUTUBEAPI';
+import Auth from '../utils/auth';
+import DETAILAPI from '../utils/DETAILAPI';
+import YOUTUBEAPI from '../utils/YOUTUBEAPI';
 import {useMutation} from '@apollo/client';
-import {SAVE_MOVIE} from '../../utils/mutations';
-import SearchedMovies, {SearchMovies} from '../SearchedMovies';
+import {SAVE_MOVIE} from '../utils/mutations';
+import SearchedMovies, {SearchMovies} from '../components/SearchedMovies';
 
 const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
 
