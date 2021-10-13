@@ -6,6 +6,7 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
+        username
       }
     }
   }
@@ -17,17 +18,32 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        username
       }
     }
   }
 `;
 
-export const ADD_MOVIE = gql`
+export const SAVE_MOVIE = gql`
   mutation addMovie($title: String!) {
     addMovie(title: $title) {
       _id
       title
-      director
+      poster
+      comments {
+        _id
+        commentText
+      }
+    }
+  }
+`;
+
+export const REMOVE_MOVIE = gql`
+  mutation removeMovie($moiveId: ID!) {
+    removeMovie(movieId: $movieId) {
+      _id
+      title
+      poster
       comments {
         _id
         commentText
@@ -41,7 +57,22 @@ export const ADD_COMMENT = gql`
     addComment(movieId: $movieId, commentText: $commentText) {
       _id
       title
-      director
+      poster
+      comments {
+        _id
+        commentText
+        createdAt
+      }
+    }
+  }
+`;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($movieId: ID!, $commentId: ID!) {
+    removeComment(movieID: $movieId, commentId: $commentId) {
+      -id
+      title
+      poster
       comments {
         _id
         commentText
