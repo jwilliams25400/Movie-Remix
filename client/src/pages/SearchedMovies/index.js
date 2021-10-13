@@ -43,7 +43,7 @@ const SearchedMovies = () => {
 
   const handleSaveMovie = async (movieId) => {
     const moviesToSave = searchedMovies.find(
-      (book) => movie.movieTitle === movieTitle
+      (movie) => movie.movieTitle === movieTitle
     );
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -83,26 +83,60 @@ const SearchedMovies = () => {
           </form>
         </div>
       </div>
-    
+
       <div className="search-movie container">
         <h3>
-          {searchedMovies.length ? `Viewing ${searchedMovies.lenght} Movies:` : "Search for a movie to begin"}
+          {searchedMovies.length
+            ? `Viewing ${searchedMovies.lenght} Movies:`
+            : "Search for a movie to begin"}
         </h3>
         <div className="row movie">
-          <div className="col s6 m7 l12">
-            <div className="card-holder">
-              <div className="title-holder">
-                <h8>Title goes here</h8>
-              </div>
-              <div className="card-body">
-                <div className="align-content-center img-display"></div>
-              </div>
-            </div>
+          <div className="col-3">
+            {searchedMovies.map((movie) => {
+              return (
+                <div className="card-body">
+                  <h5 className="card-title">{movie.title}</h5>
+                  <div div className="img-container">
+                    {movie.poster ? (
+                      <img
+                        className="movie-poster"
+                        src={movie.poster}
+                        alt={`The Poster for ${movie.title}`}
+                        variant="top"
+                      />
+                    ) : null}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
     </>
-    )     
-  };
+  );
+};
 
 export default SearchedMovies;
+{
+  /*
+             <div className="card" >{movie.poster ? (
+             <img src={movie.poster} alt={movie.title}
+             />
+             ): null} 
+              </div>
+              );
+              }
+             </div>
+              </div>
+              */
+}
+
+{
+  /* <div className="title-holder">
+           <h6>{movie.title}</h6>
+         </div>
+        
+         <div className="card-body">
+           <div className="align-content-center img-display"></div>
+         </div> */
+}
