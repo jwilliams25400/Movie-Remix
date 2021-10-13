@@ -41,14 +41,22 @@ try {
     const movieData = items.map((movie) => ({
         movieId: movie.id,
         title: movie.title,
-        director: movie.director
-        
-    }))
-} catch (err) {
+        director: movie.director,
+        genre: movie.genre,
+        released: movie.released,
+        rated: movie.rated,
+        rating: movie.ratings[0].value,
+        plot: movie.plot,
+        actors: movie.actors,
+        poster: movie.poster,
+    }));
 
+    
+} catch (err) {
+    console.error(err);
 }
 
-function MovieDetails(props) {
+function MovieDetails(data) {
     return (
         <div>
             <div className="text-left">
