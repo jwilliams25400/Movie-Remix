@@ -6,6 +6,7 @@ export const LOGIN_USER = gql`
       token
       user {
         _id
+        username
       }
     }
   }
@@ -17,6 +18,7 @@ export const ADD_USER = gql`
       token
       user {
         _id
+        username
       }
     }
   }
@@ -25,6 +27,20 @@ export const ADD_USER = gql`
 export const ADD_MOVIE = gql`
   mutation addMovie($title: String!) {
     addMovie(title: $title) {
+      _id
+      title
+      director
+      comments {
+        _id
+        commentText
+      }
+    }
+  }
+`;
+
+export const REMOVE_MOVIE = gql`
+  mutation removeMovie($moiveId: ID!) {
+    removeMovie(movieId: $movieId) {
       _id
       title
       director
@@ -48,5 +64,11 @@ export const ADD_COMMENT = gql`
         createdAt
       }
     }
+  }
+`;
+
+export const REMOVE_COMMENT = gql`
+  mutation removeComment($movieId: ID!, $commentId: ID!) {
+    removeComment()
   }
 `;
