@@ -69,6 +69,15 @@ export const ADD_COMMENT = gql`
 
 export const REMOVE_COMMENT = gql`
   mutation removeComment($movieId: ID!, $commentId: ID!) {
-    removeComment()
+    removeComment(movieID: $movieId, commentId: $commentId) {
+      -id
+      title
+      director
+      comments {
+        _id
+        commentText
+        createdAt
+      }
+    }
   }
 `;
