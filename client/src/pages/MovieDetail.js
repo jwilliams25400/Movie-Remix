@@ -5,7 +5,7 @@ import DETAILAPI from '../utils/DETAILAPI';
 import YOUTUBEAPI from '../utils/YOUTUBEAPI';
 import {useMutation} from '@apollo/client';
 import {SAVE_MOVIE} from '../utils/mutations';
-import SearchedMovies, {SearchMovies} from '../components/SearchedMovies';
+import SearchedMovies, {SearchMovies} from './SearchedMovies/index';
 
 const [saveMovie, {error}] = useMutation(SAVE_MOVIE);
 
@@ -41,14 +41,14 @@ function MovieDetails(props) {
                     style={{ margin: '0 auto' }}
                 />
 
-                <button
+                <Button
                     disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                     className='btn-block btn-info'
                     onClick={() => handleSaveMovie(book.bookId)}>
                     {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                       ? 'This book has already been saved!'
                       : 'Save this Book!'}
-                </button>
+                </Button>
 
                 <h3>Director(s): {props.director}</h3>
                 <h3>Genre: {props.genre}</h3>
