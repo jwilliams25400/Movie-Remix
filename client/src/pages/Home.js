@@ -7,7 +7,7 @@ import { searchApi } from '../components/SearchApi'
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 
 const Home = () => {
-
+  
 
   return (
 
