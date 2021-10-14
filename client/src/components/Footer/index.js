@@ -17,16 +17,16 @@ const Footer = () => {
           </button>
         )}
         <h4>
-          Made with{' '}
+         &copy;
           <span
-            className="emoji"
+            className="symbol"
             role="img"
-            aria-label="heart"
+            aria-label="copyright"
             aria-hidden="false"
           >
-            ❤️
+        
           </span>{' '}
-          by the Tech Thoughts team.
+         Adam. G, Christia.C and Jemel.W, 2021
         </h4>
       </div>
     </footer>
