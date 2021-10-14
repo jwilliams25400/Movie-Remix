@@ -5,37 +5,40 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import { searchInput } from './SearchedMovies';
+import { searchedMovies, saveTitle } from './SearchedMovies';
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
-const handleSaveMovie = async (movieTitle) => {
-    const movieToSave = SearchedMovies.find((movie) => movie.movieTitle === movieTitle);
+const handleSaveMovie = async (title) => {
+
+    const moviesToSave = searchedMovies.find(
+      (movie) => movie.title === title
+    );
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
     if (!token) {
-        return false;
+      return false;
     }
-
     try {
-        const { data } = await saveMovie({
-            variables: { movieData: { ...movieToSave } }
-        });
+      const { info } = await saveTitle({
+        variable: { movieData: { ...moviesToSave } },
+      });
+      console.log(info);
 
-        setSavedMovieTitles([...setSavedMovieTitles, movieToSave.movieTitle]);
+      setSaveTitle([...saveTitle, moviesToSave.title]);
+
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
-};
+  };
 
 const detailedMovies = () => {
     const [details, setDetails] = useState([]);
     const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI(searchInput);
+        const response = await detailAPI(searchedMovies);
 
         if (!response.ok) {
             throw new Error('failed to grab')
@@ -62,7 +65,7 @@ const detailedMovies = () => {
     }
 
     try {
-        const response = await trailerAPI(searchInput);
+        const response = await trailerAPI(searchedMovies);
 
         if (!response.ok) {
             throw new Error('failed to load')
