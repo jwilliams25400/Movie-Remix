@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+import {Button, Card} from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import SearchedMovies, { searchMovies, searchInput } from './SearchedMovies/index';
+import { searchedMovies, saveTitle } from './SearchedMovies';
+import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
-const handleSaveMovie = async (movieTitle) => {
-    const movieToSave = SearchedMovies.find((movie) => movie.movieTitle === movieTitle);
+const handleSaveMovie = async (title) => {
+
+    const moviesToSave = searchedMovies.find(
+      (movie) => movie.title === title
+    );
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
-
     if (!token) {
-        return false;
+      return false;
     }
-
     try {
-        const { data } = await saveMovie({
-            variables: { movieData: { ...movieToSave } }
-        });
+      const { info } = await saveTitle({
+        variable: { movieData: { ...moviesToSave } },
+      });
+      console.log(info);
 
-        setSavedMovieTitles([...setSavedMovieTitles, movieToSave.movieTitle]);
+      setSaveTitle([...saveTitle, moviesToSave.title]);
+
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
-};
+  };
 
 const detailedMovies = () => {
     const [details, setDetails] = useState([]);
+    const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI();
+        const response = await detailAPI(searchedMovies);
 
         if (!response.ok) {
-            throw new Error('something went wrong!')
+            throw new Error('failed to grab')
         }
 
         const { items } = await response.json();
@@ -58,26 +63,42 @@ const detailedMovies = () => {
     } catch (err) {
         console.error(err);
     }
+
+    try {
+        const response = await trailerAPI(searchedMovies);
+
+        if (!response.ok) {
+            throw new Error('failed to load')
+        }
+
+        const { newItem } = await response.json();
+
+        const trailerData = newItem.map((trailer) => ({
+            trailer: trailer.items.id.videoid
+        }));
+        setTrailer(trailerData);
+    } catch (err) {
+        console.log(err);
+    }
+
         {details.map((movie) => {
         return (
             <div>
                 <div className="text-left">
                 <Card key={movie.movieId} border='dark'>
                 {movie.image ? (
-                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
+                  <Card.Img src={movie.image} alt={`The Poster for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Authors: {movie.authors}</p>
+                  <p className='small'>Director(s): {movie.director}</p>
                   <Card.Text>
-                    Director(s): {movie.director}
+                    Plot: {movie.plot}
+                    Actors: {movie.actors}
                     Genre: {movie.genre}
                     Released: {movie.released}
                     Rated: {movie.rated}
                     Rating: {movie.rating[0].value}
-                    Plot: {movie.plot}
-                    Actors: {movie.actors}
-                    Trailer: {movie.trailer}
                   </Card.Text>
                   {Auth.loggedIn() && (
                     <Button
@@ -91,6 +112,14 @@ const detailedMovies = () => {
                   )}
                 </Card.Body>
               </Card>
+                  {trailer.map((trailer) => {
+                      return (
+                        <div>
+                            <h1>Movie Trailer</h1>
+                            <YoutubeEmbed embedId = '`${trailer.trailer}`' />
+                        </div>
+                      )
+                  })}
                 </div>
             </div>
         );
