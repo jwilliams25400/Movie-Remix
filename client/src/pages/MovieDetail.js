@@ -84,7 +84,7 @@ const detailedMovies = () => {
                 <div className="text-left">
                 <Card key={movie.movieId} border='dark'>
                 {movie.image ? (
-                  <Card.Img src={movie.image} alt={`The poster for ${movie.title}`} variant='top' />
+                  <Card.Img src={movie.image} alt={`The Poster for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
