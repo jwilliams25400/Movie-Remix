@@ -2,7 +2,7 @@ import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Home from './pages/Home';
+import AppNavbar from './components/Navbar';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -11,7 +11,7 @@ import Footer from './components/Footer';
 import SearchedMovies from './pages/SearchedMovies';
 import MovieDetails from './pages/MovieDetail';
 
-// Construct our main GraphQL API endpoint
+// Construct our main GraphQL API endpoint 
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -41,6 +41,7 @@ function App() {
       <Router>
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
+          <AppNavbar/>
           <div className="container">
             <Route exact path="/" component={SearchedMovies}/>
             <Route exact path="/login">

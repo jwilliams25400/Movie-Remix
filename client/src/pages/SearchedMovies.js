@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { searchAPI } from "../../utils/POSTERAPI";
-import { SearchForm } from "../../components/SearchForm";
 import { NavLink } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
