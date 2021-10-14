@@ -1,20 +1,15 @@
 import React from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import SearchedMovies from './pages/SearchedMovies';
+import MovieDetails from './pages/MovieDetail';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -47,9 +42,7 @@ function App() {
         <div className="flex-column justify-flex-start min-100-vh">
           <Header />
           <div className="container">
-            <Route exact path="/">
-              <Home />
-            </Route>
+            <Route exact path="/" component={SearchedMovies}/>
             <Route exact path="/login">
               <Login />
             </Route>
@@ -62,9 +55,7 @@ function App() {
             <Route exact path="/profiles/:username">
               <Profile />
             </Route>
-            <Route exact path="/thoughts/:thoughtId">
-              <SingleThought />
-            </Route>
+            <Route exact path='/MovieDetail' component={MovieDetails} />
           </div>
           <Footer />
         </div>

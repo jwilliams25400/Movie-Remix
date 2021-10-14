@@ -5,7 +5,7 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import { searchInput } from './SearchedMovies/index';
+import { searchInput } from './SearchedMovies';
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
