@@ -6,6 +6,7 @@ import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
 import { searchInput } from './SearchedMovies/index';
+import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
@@ -110,11 +111,10 @@ const detailedMovies = () => {
               </Card>
                   {trailer.map((trailer) => {
                       return (
-                        <Card>
-                            <Card.Body>
-                                {trailer.trailer}
-                            </Card.Body>
-                        </Card>
+                        <div>
+                            <h1>Movie Trailer</h1>
+                            <YoutubeEmbed embedId = '`${trailer.trailer}`' />
+                        </div>
                       )
                   })}
                 </div>
