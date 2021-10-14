@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import '../YoutubeVid/youtube.css'
 
-const YoutubeEmbed = ({ embedId }) => (
+export const YoutubeEmbed = ({ embedId }) => (
   <div className="video-responsive">
     <iframe
       width="853"
@@ -19,5 +19,3 @@ const YoutubeEmbed = ({ embedId }) => (
 YoutubeEmbed.propTypes = {
   embedId: PropTypes.string.isRequired
 };
-
-export default YoutubeEmbed;
