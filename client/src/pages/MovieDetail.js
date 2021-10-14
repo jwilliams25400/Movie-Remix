@@ -5,7 +5,7 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import SearchedMovies, { searchMovies, searchInput } from './SearchedMovies/index';
+import { searchInput } from './SearchedMovies/index';
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
@@ -31,12 +31,13 @@ const handleSaveMovie = async (movieTitle) => {
 
 const detailedMovies = () => {
     const [details, setDetails] = useState([]);
+    const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI();
+        const response = await detailAPI(searchInput);
 
         if (!response.ok) {
-            throw new Error('something went wrong!')
+            throw new Error('failed to grab')
         }
 
         const { items } = await response.json();
@@ -58,6 +59,24 @@ const detailedMovies = () => {
     } catch (err) {
         console.error(err);
     }
+
+    try {
+        const response = await trailerAPI(searchInput);
+
+        if (!response.ok) {
+            throw new Error('failed to load')
+        }
+
+        const { newItem } = await response.json();
+
+        const trailerData = newItem.map((trailer) => ({
+            trailer: trailer.items.id.videoid
+        }));
+        setTrailer(trailerData);
+    } catch (err) {
+        console.log(err);
+    }
+
         {details.map((movie) => {
         return (
             <div>
@@ -70,13 +89,12 @@ const detailedMovies = () => {
                   <Card.Title>{movie.title}</Card.Title>
                   <p className='small'>Director(s): {movie.director}</p>
                   <Card.Text>
+                    Plot: {movie.plot}
+                    Actors: {movie.actors}
                     Genre: {movie.genre}
                     Released: {movie.released}
                     Rated: {movie.rated}
                     Rating: {movie.rating[0].value}
-                    Plot: {movie.plot}
-                    Actors: {movie.actors}
-                    Trailer: {movie.trailer}
                   </Card.Text>
                   {Auth.loggedIn() && (
                     <Button
@@ -90,6 +108,15 @@ const detailedMovies = () => {
                   )}
                 </Card.Body>
               </Card>
+                  {trailer.map((trailer) => {
+                      return (
+                        <Card>
+                            <Card.Body>
+                                {trailer.trailer}
+                            </Card.Body>
+                        </Card>
+                      )
+                  })}
                 </div>
             </div>
         );
