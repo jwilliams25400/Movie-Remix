@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { Card, } from 
 
 const Footer = () => {
   const location = useLocation();
