@@ -16,22 +16,33 @@ const Footer = () => {
             &larr; Go Back
           </button>
         )}
-        <h4>Meet our Development Team</h4>
-          <h5>Christian Colon</h5>
+        <Card style={{ width: '18rem' }}>
+  <Card.Body>
+    <Card.Title>Meet our Development Team</Card.Title>
+    <Card.Subtitle className="mb-2 text-muted">Christian Colon</Card.Subtitle>
+    <Card.Text>
             <ul>
               <li><a href="https://github.com/Colon182">Github</a></li>
-              <li><a href=""></a></li>
+              <li><a href="https://www.linkedin.com/in/christian-colon-861964218/">LinkedIn</a></li>
             </ul>
-          <h5>Adam Gonzalez</h5>
+    </Card.Text>
+    <Card.Subtitle className="mb-2 text-muted">Adam Gonzalez</Card.Subtitle>
+    <Card.Text>
             <ul>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
+              <li><a href="https://github.com/Trgrf">Github</a></li>
+              <li><a href="https://www.linkedin.com/in/adam-gonzalez-526709217/">LinkedIn</a></li>
             </ul>
-          <h5>Jemel Williams</h5>
+    </Card.Text>
+    <Card.Subtitle className="mb-2 text-muted">Jemel Williams</Card.Subtitle>
+    <Card.Text>
             <ul>
-              <li><a href=""></a></li>
-              <li><a href=""></a></li>
+              <li><a href="https://github.com/jwilliams25400">Github</a></li>
+              <li><a href="http://www.linkedin.com/in/jemel-williams-cams-a5b14014">LinkedIn</a></li>
             </ul>
+    </Card.Text>
+    <Card.Link href="#">Card Link</Card.Link>
+  </Card.Body>
+</Card>
       </div>
     </footer>
   );
