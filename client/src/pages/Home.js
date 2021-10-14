@@ -1,16 +1,16 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-
-import ThoughtList from '../components/ThoughtList';
-import ThoughtForm from '../components/ThoughtForm';
-
-import { QUERY_THOUGHTS } from '../utils/queries';
+import { Header } from '../components/Header'
+import { Footer } from '../components/Footer'
+import { Navbar } from '../components/Navbar'
+import { SearchForm } from '../components/SearchForm'
+import { searchApi } from '../components/SearchApi'
+import { trailerAPI } from '../utils/YOUTUBEAPI';
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_THOUGHTS);
-  const thoughts = data?.thoughts || [];
+  
 
   return (
+
     <main>
       <div className="flex-row justify-center">
         <div
