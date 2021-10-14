@@ -67,7 +67,7 @@ const SearchMovies = () => {
       console.log(info);
 
       setSaveTitle([...saveTitle, moviesToSave.title]);
-      
+
     } catch (err) {
       console.error(err);
     }
@@ -119,8 +119,14 @@ const SearchMovies = () => {
                       />
                     ) : null}
                   </div>
-                  <button onClick={() => handleSaveMovie(movie.movie.title)}>
-                    {saveMovie?.some((saveMovie))}
+                  <button disabled={saveTitle?.some(
+                    (saveTitle) => saveTitle === movie.title)}
+                  className="btn-block"
+                  onClick={() => handleSaveMovie(movie.title)}>
+                    {saveTitle?.some((saveTitle) =>
+                    saveTitle === movie.title)
+                    ? "Movie has been saved previously!"
+                    : "Save this Movie"}
                   </button>
                 </div>
               );
