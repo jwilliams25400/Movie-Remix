@@ -16,6 +16,7 @@ const Footer = () => {
             &larr; Go Back
           </button>
         )}
+
         <Card style={{ width: '18rem' }}>
   <Card.Body>
     <Card.Title>Meet our Development Team</Card.Title>
@@ -43,6 +44,20 @@ const Footer = () => {
     <Card.Link href="#">Card Link</Card.Link>
   </Card.Body>
 </Card>
+
+        <h4>
+         &copy;
+          <span
+            className="symbol"
+            role="img"
+            aria-label="copyright"
+            aria-hidden="false"
+          >
+        
+          </span>{' '}
+         Adam. G, Christia.C and Jemel.W, 2021
+        </h4>
+
       </div>
     </footer>
   );

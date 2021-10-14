@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { searchAPI } from "../../utils/POSTERAPI";
 import { SearchForm } from "../../components/SearchForm";
-
+import { NavLink } from "react-router-dom";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { SAVE_MOVIE } from "../../utils/mutations";
@@ -108,6 +108,8 @@ const SearchMovies = () => {
             {searchedMovies.map((movie) => {
               return (
                 <div className="card-body">
+                  <NavLink to="/MovieDetail" className="detail-btn">
+                    <a href="">
                   <h5 className="card-title">{movie.title}</h5>
                   <div div className="img-container">
                     {movie.poster ? (
@@ -115,10 +117,10 @@ const SearchMovies = () => {
                         className="movie-poster"
                         src={movie.poster}
                         alt={`The Poster for ${movie.title}`}
-                        variant="top"
+                        variant="top" 
                       />
                     ) : null}
-                  </div>
+                  </div></a></NavLink>
                   <button disabled={saveTitle?.some(
                     (saveTitle) => saveTitle === movie.title)}
                   className="btn-block"
