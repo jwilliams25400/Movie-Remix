@@ -64,13 +64,12 @@ const detailedMovies = () => {
                 <div className="text-left">
                 <Card key={movie.movieId} border='dark'>
                 {movie.image ? (
-                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
+                  <Card.Img src={movie.image} alt={`The poster for ${movie.title}`} variant='top' />
                 ) : null}
                 <Card.Body>
                   <Card.Title>{movie.title}</Card.Title>
-                  <p className='small'>Authors: {movie.authors}</p>
+                  <p className='small'>Director(s): {movie.director}</p>
                   <Card.Text>
-                    Director(s): {movie.director}
                     Genre: {movie.genre}
                     Released: {movie.released}
                     Rated: {movie.rated}
