@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 import Auth from '../utils/auth';
 import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
@@ -62,28 +62,35 @@ const detailedMovies = () => {
         return (
             <div>
                 <div className="text-left">
-                {movie.poster ? (
-                  <Card.Img src={movie.poster} alt={`The cover for ${movie.title}`} variant='top' />
+                <Card key={movie.movieId} border='dark'>
+                {movie.image ? (
+                  <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' />
                 ) : null}
-
-                    {/* <Button
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <p className='small'>Authors: {movie.authors}</p>
+                  <Card.Text>
+                    Director(s): {movie.director}
+                    Genre: {movie.genre}
+                    Released: {movie.released}
+                    Rated: {movie.rated}
+                    Rating: {movie.rating[0].value}
+                    Plot: {movie.plot}
+                    Actors: {movie.actors}
+                    Trailer: {movie.trailer}
+                  </Card.Text>
+                  {Auth.loggedIn() && (
+                    <Button
                     disabled={savedmovieIds?.some((savedBookId) => savedBookId === book.bookId)}
                     className='btn-block btn-info'
                     onClick={() => handleSaveMovie(book.bookId)}>
                     {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                       ? 'This book has already been saved!'
                       : 'Save movie Book!'}
-                </Button> */}
-
-                    <h3>Director(s): {movie.director}</h3>
-                    <h3>Genre: {movie.genre}</h3>
-                    <h3>Released: {movie.released}</h3>
-                    <h3>Rated: {movie.rated}</h3>
-                    <h3>Rating: {movie.rating[0].value}</h3>
-                    <h3>Plot: {movie.plot}</h3>
-                    <h3>Actors: {movie.actors}</h3>
-
-                    <h2>Trailer: {movie.trailer}</h2>
+                    </Button>
+                  )}
+                </Card.Body>
+              </Card>
                 </div>
             </div>
         );
