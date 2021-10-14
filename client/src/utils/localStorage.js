@@ -1,4 +1,4 @@
-export const getSaveMovieTitle = () => {
+export const getSaveTitle = () => {
   const saveTitle = localStorage.getItem('save_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : [];

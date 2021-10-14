@@ -5,21 +5,21 @@ import { SearchForm } from "../../components/SearchForm";
 import Auth from "../../utils/auth";
 import { useMutation } from "@apollo/client";
 import { SAVE_MOVIE } from "../../utils/mutations";
-import { saveTitle, getSaveMovieTitle } from "../../utils/localStorage";
+import { saveTitle, getSaveTitle } from "../../utils/localStorage";
 
 const SearchMovies = () => {
 
-  const [searchedMovies, setSearchMovies] = useState([]);
+  const [searchedMovies, setSearchedMovies] = useState([]);
 
   const [searchInput, setSearchInput] = useState("");
 
-  const [addMovieTitle, setAddMovieTitle] = useState
-  (getAddMovieTitle());
+  const [saveTitle, setSaveTitle] = useState
+  (getSaveTitle());
 
   const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
   useEffect(() => {
-    return() => addMovieTitle(addMovieTitle);
+    return() => saveTitle(saveTitle);
   })
 
   const handleFormSubmit = async (event) => {
@@ -43,7 +43,7 @@ const SearchMovies = () => {
         poster: movie.Search[i].Poster,
       }));
 
-      setSearchMovies(movieData);
+      setSearchedMovies(movieData);
       setSearchInput("");
     } catch (err) {
       console.log("unable to load movies");
@@ -61,10 +61,13 @@ const SearchMovies = () => {
       return false;
     }
     try {
-      const { info } = await saveMovie({
+      const { info } = await saveTitle({
         variable: { movieData: { ...moviesToSave } },
       });
       console.log(info);
+
+      setSaveTitle([...saveTitle, moviesToSave.title]);
+      
     } catch (err) {
       console.error(err);
     }
