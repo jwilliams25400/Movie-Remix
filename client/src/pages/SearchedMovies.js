@@ -3,8 +3,9 @@ import { searchAPI } from "../utils/POSTERAPI";
 import { NavLink } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
-import { SAVE_MOVIE } from "../utils/mutations";
+import { ADD_MOVIE } from "../utils/mutations";
 import { saveTitle, getSaveTitle } from "../utils/localStorage";
+import { Form, Card, Button, Col, Jumbotron, Container } from "react-bootstrap"
 
 const SearchMovies = () => {
 
@@ -13,38 +14,41 @@ const SearchMovies = () => {
   const [searchInput, setSearchInput] = useState("");
 
   const [saveTitle, setSaveTitle] = useState
-  (getSaveTitle());
+    (getSaveTitle());
 
-  const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
+  const [addMovie, { error }] = useMutation(ADD_MOVIE);
 
-  useEffect(() => {
-    return() => saveTitle(saveTitle);
-  })
+  // useEffect(() => {
+  //   // return () => saveMovie(saveTitle);
+  // })
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    console.log("handleFormSubmit")
     if (!searchInput) {
       return "Please enter a movie title";
     }
 
     try {
+      console.log("search Input: ", searchInput)
       const response = await searchAPI(searchInput);
-
+      console.log(response)
       if (!response) {
         throw new Error("unable to find movie");
       }
 
-      const { items } = await response.json();
+      const { Search: items } = await response.json();
+      console.log(items);
 
       const movieData = items.map((movie) => ({
-        title: items.Search.Title,
-        poster: movie.Search.Poster,
+        title: movie.Title,
+        poster: movie.Poster,
       }));
 
       setSearchedMovies(movieData);
       setSearchInput("");
     } catch (err) {
+      console.log(err);
       console.log("unable to load movies");
     }
   };
@@ -64,7 +68,9 @@ const SearchMovies = () => {
         variable: { movieData: { ...moviesToSave } },
       });
       console.log(info);
-
+      await addMovie({
+        variables: {  }
+      })
       setSaveTitle([...saveTitle, moviesToSave.title]);
 
     } catch (err) {
@@ -74,68 +80,68 @@ const SearchMovies = () => {
 
   return (
     <>
-      <div className="jumbotron fuild">
-        <div className="container">
+      <Jumbotron fluid className="jumbotron">
+        <Container>
           <h1>Search for Movies!</h1>
-          <form className="row" onSubmit={handleFormSubmit}>
-            <div className="col-md-5">
-              <input
-                className="form-control"
-                type="text"
-                size="lg"
-                placeholder="Search for a movie"
-                value={searchInput}
-              />
-              <div className="col-12">
-                <buton type="submit" class="btn btn-primary">
+          <Form onSubmit={handleFormSubmit}>
+            <Form.Row>
+              <Col xs={12} md={5}>
+                <Form.Control
+                  name="form-control"
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)} 
+                  type="text"
+                  size="lg"
+                  placeholder="Search for a movie"
+                />
+              </Col>
+              <Col xs={12} md={3}>
+                <Button type="submit" className="btn btn-primary">
                   Search
-                </buton>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
+                </Button>
+              </Col>
+            </Form.Row>
+          </Form>
+        </Container>
+      </Jumbotron>
       <div className="search-movie container">
-        <h3>
-          {searchedMovies.length
-            ? `Viewing ${searchedMovies.lenght} Movies:`
-            : "Search for a movie to begin"}
-        </h3>
-        <div className="row movie">
-          <div className="col-3">
-            {searchedMovies.map((movie) => {
-              return (
-                <div className="card-body">
-                  <NavLink to="/MovieDetail" className="detail-btn">
-                    <a href="">
-                  <h5 className="card-title">{movie.title}</h5>
-                  <div div className="img-container">
-                    {movie.poster ? (
-                      <img
-                        className="movie-poster"
-                        src={movie.poster}
-                        alt={`The Poster for ${movie.title}`}
-                        variant="top" 
-                      />
-                    ) : null}
-                  </div></a></NavLink>
-                  <button disabled={saveTitle?.some(
-                    (saveTitle) => saveTitle === movie.title)}
-                  className="btn-block"
-                  onClick={() => handleSaveMovie(movie.title)}>
-                    {saveTitle?.some((saveTitle) =>
-                    saveTitle === movie.title)
-                    ? "Movie has been saved previously!"
-                    : "Save this Movie"}
-                  </button>
-                </div>
-              );
-            })}
+          <h3>
+            {searchedMovies.length
+              ? `Viewing ${searchedMovies.length} Movies:`
+              : "Search for a movie to begin"}
+          </h3>
+          <div className="row movie">
+            <div className="col-3">
+              {searchedMovies.map((movie) => {
+                return (
+                  <div className="card-body">
+                    <NavLink to="/MovieDetail" className="detail-btn">
+                      <a href="">
+                        <h5 className="card-title">{movie.title}</h5>
+                        <div div className="img-container">
+                          {movie.poster ? (
+                            <img
+                              className="movie-poster"
+                              src={movie.poster}
+                              alt={`The Poster for ${movie.title}`}
+                              variant="top" />
+                          ) : null}
+                        </div></a></NavLink>
+                    <button disabled={saveTitle?.some(
+                      (saveTitle) => saveTitle === movie.title)}
+                      className="btn-block"
+                      onClick={() => handleSaveMovie(movie.title)}>
+                      {saveTitle?.some((saveTitle) => saveTitle === movie.title)
+                        ? "Movie has been saved previously!"
+                        : "Save this Movie"}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </>
+      </>
   );
 };
 

@@ -19,13 +19,19 @@ const typeDefs = gql`
   type Comment {
     _id: ID
     commentText: String!
-    commentAuthor: String
-    createdAt: String
+    commentAuthor: String!
+    createdAt: String!
   }
 
   type Auth {
     token: ID!
     user: User
+  }
+
+  input MovieInput {
+    title: String!
+    poster: String!
+    comments: [Comment]
   }
 
   type Query {
@@ -39,7 +45,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveMovie(title: String!): Movie
+    addMovie(movieData: MovieInput!): User
     addComment(movieId: ID!, commentText: String!): Movie
     removeMovie(movieId: ID!): Movie
     removeComment(movieId: ID!, commentId: ID!): Movie
