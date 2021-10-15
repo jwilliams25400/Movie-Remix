@@ -13,10 +13,10 @@ const typeDefs = gql`
     _id: ID
     title: String!
     poster: String
-    comments: [Comment]
+    comments: __Type
   }
 
-  type Comment {
+  input Comment {
     _id: ID
     commentText: String!
     commentAuthor: String!
