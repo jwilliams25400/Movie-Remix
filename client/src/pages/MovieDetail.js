@@ -9,9 +9,9 @@ import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 import { saveTitle, getSaveTitle } from "../utils/localStorage";
 
-const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
-const handleSaveMovie = async (title) => {
+const HandleSaveMovie = async (title) => {
+    const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
     const moviesToSave = SearchMovies.find(
         (movie) => movie.title === title
@@ -114,7 +114,7 @@ const DetailedMovies = async () => {
                                     <button disabled={saveTitle?.some(
                                         (saveTitle) => saveTitle === movie.title)}
                                         className="btn-block"
-                                        onClick={() => handleSaveMovie(movie.title)}>
+                                        onClick={() => HandleSaveMovie(movie.title)}>
                                         {saveTitle?.some((saveTitle) =>
                                             saveTitle === movie.title)
                                             ? "Movie has been saved previously!"
