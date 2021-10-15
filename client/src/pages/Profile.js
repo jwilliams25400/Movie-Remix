@@ -15,6 +15,7 @@ const Profile = () => {
   const [ removeMovie, {error} ] = useMutation(REMOVE_MOVIE);
 
   const userData = data?.me || {};
+  console.log(userData)
 
   const handleDeleteBook = async (movieId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
