@@ -1,4 +1,4 @@
-export const getSaveTitle = () => {
+export const getSavedMovieIds = () => {
   const saveTitle = localStorage.getItem('save_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : [];
@@ -6,7 +6,7 @@ export const getSaveTitle = () => {
   return saveTitle;
 };
 
-export const saveTitle = (titleArr) => {
+export const saveMovieIds = (titleArr) => {
   if (titleArr.length) {
     localStorage.setItem('save_movie', JSON.stringify(titleArr));
   } else {
@@ -14,7 +14,7 @@ export const saveTitle = (titleArr) => {
   }
 };
 
-export const removeTitle = (title) => {
+export const removeMovieId = (title) => {
   const saveTitle = localStorage.getItem('save_movie')
     ? JSON.parse(localStorage.getItem('save_movie'))
     : null;

@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_MOVIE } from "../utils/mutations";
-import { saveTitle, getSaveTitle } from "../utils/localStorage";
-import { Form, Card, Button, Col, Jumbotron, Container } from "react-bootstrap"
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
+import { Form, Card, Button, Col, Jumbotron, Container, CardColumns } from "react-bootstrap"
 
 const SearchMovies = () => {
 
@@ -13,13 +13,13 @@ const SearchMovies = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
-  const [savedMovieIds, setSavedMovieIds] = useState(getSaveTitle());
+  const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
   const [addMovie, { error }] = useMutation(ADD_MOVIE);
 
-  // useEffect(() => {
-  //   // return () => saveMovie(saveTitle);
-  // })
+  useEffect(() => {
+    return () => saveMovieIds(savedMovieIds);
+  })
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -61,7 +61,7 @@ const SearchMovies = () => {
     }
     try {
       const { data } = await addMovie({
-        variables: { movieData: { ...moviesToSave}}
+        variables: { movieData: { ...moviesToSave } }
       })
       setSavedMovieIds([...savedMovieIds, moviesToSave.movieId]);
 
@@ -82,7 +82,7 @@ const SearchMovies = () => {
                 <Form.Control
                   name="form-control"
                   value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)} 
+                  onChange={(e) => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
                   placeholder="Search for a movie"
@@ -97,43 +97,40 @@ const SearchMovies = () => {
           </Form>
         </Container>
       </Jumbotron>
-      <div className="search-movie container">
-          <h3>
-            {searchedMovies.length
-              ? `Viewing ${searchedMovies.length} Movies:`
-              : "Search for a movie to begin"}
-          </h3>
-          <div className="row movie">
-            <div className="col-3">
-              {searchedMovies.map((movie) => {
-                return (
-                  <div className="card-body">
-                    <NavLink to="/MovieDetail" className="detail-btn">
-                      <a href="">
-                        <h5 className="card-title">{movie.title}</h5>
-                        <div div className="img-container">
-                          {movie.poster ? (
-                            <img
-                              className="movie-poster"
-                              src={movie.poster}
-                              alt={`The Poster for ${movie.title}`}
-                              variant="top" />
-                          ) : null}
-                        </div></a></NavLink>
-                    <button disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
+
+      <Container>
+        <h3>
+          {searchedMovies.length
+            ? `Viewing ${searchedMovies.length} Movies:`
+            : "Search for a movie to begin"}
+        </h3>
+        <CardColumns>
+          {searchedMovies.map((movie) => {
+            return (
+              <Card key={movie.movieId} border='dark'>
+                <NavLink to="/MovieDetail" className="detail-btn">
+                  <a href="">
+                    <Card.Title>{movie.title}</Card.Title>
+                    <Container>
+                      {movie.poster ? (
+                        <Card.Img className="movie-poster" src={movie.poster} alt={`The Poster for ${movie.title}`} variant="top" />
+                      ) : null}
+                    </Container></a></NavLink>
+                  {Auth.loggedIn() && (
+                    <Button disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
                       className="btn-block"
                       onClick={() => handleSaveMovie(movie.movieId)}>
                       {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
                         ? "Movie has been saved previously!"
                         : "Save this Movie"}
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </>
+                    </Button>
+                  )}
+              </Card>
+            );
+          })}
+        </CardColumns>
+      </Container>
+    </>
   );
 };
 
