@@ -48,16 +48,16 @@ const DetailedMovies = async () => {
         const { items } = await response.json();
 
         const movieData = items.map((movie) => ({
-            movieId: movie.id,
-            title: movie.title,
-            director: movie.director,
-            genre: movie.genre,
-            released: movie.released,
-            rated: movie.rated,
-            rating: movie.ratings[0].value,
-            plot: movie.plot,
-            actors: movie.actors,
-            poster: movie.poster,
+            movieId: movie.imdbID,
+            title: movie.Title,
+            director: movie.Director,
+            genre: movie.Genre,
+            released: movie.Released,
+            rated: movie.Rated,
+            rating: movie.Ratings[0].Value,
+            plot: movie.Plot,
+            actors: movie.Actors,
+            poster: movie.Poster,
         }));
 
         setDetails(movieData);
