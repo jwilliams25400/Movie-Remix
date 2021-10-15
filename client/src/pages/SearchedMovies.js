@@ -38,8 +38,8 @@ const SearchMovies = () => {
       const { items } = await response.json();
 
       const movieData = items.map((movie) => ({
-        title: items.Search[i].Title,
-        poster: movie.Search[i].Poster,
+        title: items.Search.Title,
+        poster: movie.Search.Poster,
       }));
 
       setSearchedMovies(movieData);
