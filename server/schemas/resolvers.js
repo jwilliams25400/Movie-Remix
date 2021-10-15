@@ -49,7 +49,7 @@ const resolvers = {
       return { token, user };
     },
     // TODO **********************************
-    addMovie: async (parent, { title }, context) => {
+    saveMovie: async (parent, { title }, context) => {
       if (context.user) {
         let movieTitle = await Movies.create({
           title,
