@@ -49,16 +49,10 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      movie {
-        _id
+      newMovie {
         title
-        director
-        comments {
-          _id
-          commentText
-          commentAuthor
-          createdAt
-        }
+        poster
+        comments
       }
     }
   }

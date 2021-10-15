@@ -55,7 +55,7 @@ const Footer = () => {
           >
         
           </span>{' '}
-         Adam. G, Christia.C and Jemel.W, 2021
+         Adam. G, Christian.C and Jemel.W, 2021
         </h4>
 
       </div>

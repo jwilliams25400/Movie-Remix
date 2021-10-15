@@ -7,32 +7,32 @@ import { useMutation } from '@apollo/client';
 import { ADD_MOVIE } from '../utils/mutations';
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
-import { saveTitle, getSaveTitle } from "../utils/localStorage";
+// import { saveTitle, getSaveTitle } from "../utils/localStorage";
 
 
-const HandleSaveMovie = async (title) => {
-    const [addMovie, { error }] = useMutation(ADD_MOVIE);
+// const HandleSaveMovie = async (title) => {
+//     const [addMovie, { error }] = useMutation(ADD_MOVIE);
 
-    const moviesToSave = SearchMovies.find(
-        (movie) => movie.title === title
-    );
+//     const moviesToSave = SearchMovies.find(
+//         (movie) => movie.title === title
+//     );
 
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    if (!token) {
-        return false;
-    }
-    try {
-        const { info } = await saveTitle({
-            variable: { movieData: { ...moviesToSave } },
-        });
-        console.log(info);
+//     const token = Auth.loggedIn() ? Auth.getToken() : null;
+//     if (!token) {
+//         return false;
+//     }
+//     try {
+//         const { info } = await saveTitle({
+//             variable: { movieData: { ...moviesToSave } },
+//         });
+//         console.log(info);
 
-        getSaveTitle([...saveTitle, moviesToSave.title]);
+//         getSaveTitle([...saveTitle, moviesToSave.title]);
 
-    } catch (err) {
-        console.error(err);
-    }
-};
+//     } catch (err) {
+//         console.error(err);
+//     }
+// };
 
 const DetailedMovies = async () => {
     const [details, setDetails] = useState([]);
@@ -102,7 +102,7 @@ const DetailedMovies = async () => {
                                     Rated: {movie.rated}
                                     Rating: {movie.rating[0].value}
                                 </Card.Text>
-                                {Auth.loggedIn() && (
+                                {/* {Auth.loggedIn() && (
                                     // <Button
                                     //     disabled={savedmovieIds?.some((savedBookId) => savedBookId === book.bookId)}
                                     //     className='btn-block btn-info'
@@ -111,16 +111,16 @@ const DetailedMovies = async () => {
                                     //         ? 'This book has already been saved!'
                                     //         : 'Save movie Book!'}
                                     // </Button>
-                                    <button disabled={saveTitle?.some(
-                                        (saveTitle) => saveTitle === movie.title)}
-                                        className="btn-block"
-                                        onClick={() => HandleSaveMovie(movie.title)}>
-                                        {saveTitle?.some((saveTitle) =>
-                                            saveTitle === movie.title)
-                                            ? "Movie has been saved previously!"
-                                            : "Save this Movie"}
-                                    </button>
-                                )}
+                                    // <button disabled={saveTitle?.some(
+                                    //     (saveTitle) => saveTitle === movie.title)}
+                                    //     className="btn-block"
+                                    //     onClick={() => HandleSaveMovie(movie.title)}>
+                                    //     {saveTitle?.some((saveTitle) =>
+                                    //         saveTitle === movie.title)
+                                    //         ? "Movie has been saved previously!"
+                                    //         : "Save this Movie"}
+                                    // </button>
+                                )} */}
                             </Card.Body>
                         </Card>
                         {trailer.map((trailer) => {

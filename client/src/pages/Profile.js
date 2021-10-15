@@ -1,59 +1,74 @@
 import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+
+import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
+
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_USER, QUERY_MOVIES, QUERY_SINGLE_MOVIE, QUERY_ME} from '../utils/queries';
+import { QUERY_ME } from '../utils/queries';
+import { REMOVE_MOVIE } from '../utils/mutations';
+
 import Auth from '../utils/auth';
-import { REMOVE_MOVIE } from '../utils/mutations'
+import { removeMovieId } from '../utils/localStorage';
 
 const Profile = () => {
-  const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
+  const { loading, data } = useQuery(QUERY_ME);
+  const [ removeMovie, {error} ] = useMutation(REMOVE_MOVIE);
 
-  const user = data?.me || data?.user || {};
-  // redirect to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-    return <Redirect to="/me" />;
-  }
+  const userData = data?.me || {};
+  console.log(userData)
+
+  const handleDeleteBook = async (movieId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      const { data } = await removeMovie ({
+        variables: { movieId }
+      });
+
+      removeMovieId(movieId);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!user?.username) {
-    return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
-    );
+    return <h2>LOADING...</h2>
   }
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+    <>
+      <Jumbotron fluid className='text-light bg-dark'>
+        <Container>
+          <h1>Viewing Saved Movies!</h1>
+        </Container>
+      </Jumbotron>
+      <Container>
+        <h2>
+          {userData.newMovie.length
+            ? `Viewing ${userData.newMovie.length} saved ${userData.newMovie.length === 1 ? 'movie' : 'movies'}:`
+            : 'You have no saved movies!'}
         </h2>
-
-        <div className="col-12 col-md-10 mb-5">
-          <div
-            title={`${user.title}`}
-            poster={true}
-          />
-        </div>
-        {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: '1px dotted #1a1a1a' }}
-          >
-            <div/>
-          </div>
-        )}
-      </div>
-    </div>
+        <CardColumns>
+          {userData.newMovie.map((movie) => {
+            return (
+              <Card key={movie.movieId} border='dark'>
+                {movie.poster ? <Card.Img src={movie.poster} alt={`The Poster for ${movie.title}`} variant='top' /> : null}
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(movie.movieId)}>
+                    Delete this Movie!
+                  </Button>
+                </Card.Body>
+              </Card>
+            );
+          })}
+        </CardColumns>
+      </Container>
+    </>
   );
 };
 
