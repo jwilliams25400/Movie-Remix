@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
-import { saveTitle, getSaveTitle } from "../../utils/localStorage";
+import { saveTitle, getSaveTitle } from "../utils/localStorage";
 
 const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 

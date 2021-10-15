@@ -39,7 +39,7 @@ export const SAVE_MOVIE = gql`
 `;
 
 export const REMOVE_MOVIE = gql`
-  mutation removeMovie($moiveId: ID!) {
+  mutation removeMovie($movieId: ID!) {
     removeMovie(movieId: $movieId) {
       _id
       title
@@ -70,7 +70,7 @@ export const ADD_COMMENT = gql`
 export const REMOVE_COMMENT = gql`
   mutation removeComment($movieId: ID!, $commentId: ID!) {
     removeComment(movieID: $movieId, commentId: $commentId) {
-      -id
+      _id
       title
       poster
       comments {

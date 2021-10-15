@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { searchAPI } from "../../utils/POSTERAPI";
+import { searchAPI } from "../utils/POSTERAPI";
 import { NavLink } from "react-router-dom";
-import Auth from "../../utils/auth";
+import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
-import { SAVE_MOVIE } from "../../utils/mutations";
-import { saveTitle, getSaveTitle } from "../../utils/localStorage";
+import { SAVE_MOVIE } from "../utils/mutations";
+import { saveTitle, getSaveTitle } from "../utils/localStorage";
 
 const SearchMovies = () => {
 

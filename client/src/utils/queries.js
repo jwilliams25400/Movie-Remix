@@ -19,7 +19,7 @@ export const QUERY_USER = gql`
 
 export const QUERY_MOVIES = gql`
   query movies($title: String!){
-   movie(title: $title) {
+    movie(title: $title) {
       _id
       title
       director
