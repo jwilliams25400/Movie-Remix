@@ -13,8 +13,7 @@ const SearchMovies = () => {
 
   const [searchInput, setSearchInput] = useState("");
 
-  const [saveTitle, setSaveTitle] = useState
-    (getSaveTitle());
+  const [savedMovieIds, setSavedMovieIds] = useState(getSaveTitle());
 
   const [addMovie, { error }] = useMutation(ADD_MOVIE);
 
@@ -53,27 +52,21 @@ const SearchMovies = () => {
     }
   };
 
-  const handleSaveMovie = async (title) => {
-
-    const moviesToSave = searchedMovies.find(
-      (movie) => movie.title === title
-    );
+  const handleSaveMovie = async (movieId) => {
+    const moviesToSave = searchedMovies.find((movie) => movie.movieId === movieId);
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
     if (!token) {
       return false;
     }
     try {
-      const { info } = await saveTitle({
-        variable: { movieData: { ...moviesToSave } },
-      });
-      console.log(info);
-      await addMovie({
-        variables: {  }
+      const { data } = await addMovie({
+        variables: { movieData: { ...moviesToSave}}
       })
-      setSaveTitle([...saveTitle, moviesToSave.title]);
+      setSavedMovieIds([...savedMovieIds, moviesToSave.movieId]);
 
     } catch (err) {
+      console.log(err)
       console.error(err);
     }
   };
@@ -127,11 +120,10 @@ const SearchMovies = () => {
                               variant="top" />
                           ) : null}
                         </div></a></NavLink>
-                    <button disabled={saveTitle?.some(
-                      (saveTitle) => saveTitle === movie.title)}
+                    <button disabled={savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)}
                       className="btn-block"
-                      onClick={() => handleSaveMovie(movie.title)}>
-                      {saveTitle?.some((saveTitle) => saveTitle === movie.title)
+                      onClick={() => handleSaveMovie(movie.movieId)}>
+                      {savedMovieIds?.some((savedMovieId) => savedMovieId === movie.movieId)
                         ? "Movie has been saved previously!"
                         : "Save this Movie"}
                     </button>
