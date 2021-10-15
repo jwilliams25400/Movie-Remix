@@ -4,14 +4,14 @@ import Auth from '../utils/auth';
 import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
-import { SAVE_MOVIE } from '../utils/mutations';
+import { ADD_MOVIE } from '../utils/mutations';
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 import { saveTitle, getSaveTitle } from "../utils/localStorage";
 
 
 const HandleSaveMovie = async (title) => {
-    const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
+    const [addMovie, { error }] = useMutation(ADD_MOVIE);
 
     const moviesToSave = SearchMovies.find(
         (movie) => movie.title === title

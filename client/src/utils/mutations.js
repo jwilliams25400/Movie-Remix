@@ -24,15 +24,21 @@ export const ADD_USER = gql`
   }
 `;
 
-export const SAVE_MOVIE = gql`
-  mutation addMovie($title: String!) {
-    addMovie(title: $title) {
+export const ADD_MOVIE = gql`
+  mutation addMovie($movieData: MovieInput!) {
+    addMovie(movieData: $movieData) {
       _id
-      title
-      poster
+      username
+      email
+      newMovie {
+        title
+        poster
+      }
       comments {
         _id
         commentText
+        commentAuthor
+        createdAt
       }
     }
   }

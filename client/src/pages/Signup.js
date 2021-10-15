@@ -13,6 +13,7 @@ const Signup = () => {
     password: '',
   });
   const [addUser, { error, data }] = useMutation(ADD_USER);
+    console.log(error);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,8 +34,8 @@ const Signup = () => {
       });
 
       Auth.login(data.addUser.token);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.log(error);
     }
   };
 

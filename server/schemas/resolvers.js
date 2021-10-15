@@ -49,18 +49,15 @@ const resolvers = {
       return { token, user };
     },
     // TODO **********************************
-    saveMovie: async (parent, { title }, context) => {
+    addMovie: async (parent, { movieData }, context) => {
       if (context.user) {
-        let movieTitle = await Movies.create({
-          title,
-        });
-
-        await User.findOneAndUpdate(
+        let updateUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { movies: movies._id } }
+          { $push: { newMovie: movieData } },
+          {new: true}
         );
 
-        return movieTitle;
+        return updateUser;
       }
       throw new AuthenticationError('You need to be logged in!');
     },
