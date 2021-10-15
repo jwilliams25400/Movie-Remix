@@ -5,40 +5,40 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { SAVE_MOVIE } from '../utils/mutations';
-import { SearchMovies } from './SearchedMovies';
+import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 
-// const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
+const [saveMovie, { error }] = useMutation(SAVE_MOVIE);
 
-// const handleSaveMovie = async (title) => {
+const handleSaveMovie = async (title) => {
 
-//     const moviesToSave = searchedMovies.find(
-//       (movie) => movie.title === title
-//     );
+    const moviesToSave = SearchMovies.find(
+      (movie) => movie.title === title
+    );
 
-//     const token = Auth.loggedIn() ? Auth.getToken() : null;
-//     if (!token) {
-//       return false;
-//     }
-//     try {
-//       const { info } = await saveTitle({
-//         variable: { movieData: { ...moviesToSave } },
-//       });
-//       console.log(info);
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    if (!token) {
+      return false;
+    }
+    try {
+      const { info } = await saveTitle({
+        variable: { movieData: { ...moviesToSave } },
+      });
+      console.log(info);
 
-//       setSaveTitle([...saveTitle, moviesToSave.title]);
+      setSaveTitle([...saveTitle, moviesToSave.title]);
 
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   };
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
 const detailedMovies = async () => {
     const [details, setDetails] = useState([]);
     const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI(searchedMovies);
+        const response = await detailAPI(searchMovies);
 
         if (!response.ok) {
             throw new Error('failed to grab')
@@ -65,7 +65,7 @@ const detailedMovies = async () => {
     }
 
     try {
-        const response = await trailerAPI(searchedMovies);
+        const response = await trailerAPI(searchMovies);
 
         if (!response.ok) {
             throw new Error('failed to load')
