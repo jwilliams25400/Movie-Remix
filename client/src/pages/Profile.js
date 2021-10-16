@@ -216,7 +216,7 @@ const Profile = () => {
             <ChatFeed />        
             </div>
 
-            <div className="sdfjosdfaoafoijjk"></div>
+            <div className="deciding if this section is necessary"></div>
           </div>
         </div>
       </div>
