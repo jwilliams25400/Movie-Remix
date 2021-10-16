@@ -213,9 +213,7 @@ const Profile = () => {
                 height: "100vh",
               }}
             > 
-            <ChatFeed />
-          
-          
+            <ChatFeed />        
             </div>
 
             <div className="sdfjosdfaoafoijjk"></div>
