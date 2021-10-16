@@ -152,21 +152,72 @@ const Profile = () => {
                           <button
                             id="new-chat"
                             className="primary-btn"
-                            style={{ height: "36px", fontSize: "15px", cursor:"pointer",
-                          padding:"8px 16px",
-                        borderRadius:"33px", backgroundColor:"blue" }}
-                          ><span role="img" aria-label="plus">+</span></button>
+                            style={{
+                              height: "36px",
+                              fontSize: "15px",
+                              cursor: "pointer",
+                              padding: "8px 16px",
+                              borderRadius: "33px",
+                              backgroundColor: "blue",
+                            }}
+                          >
+                            <span role="img" aria-label="plus">
+                              +
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div></div>
+                  <div>
+                    <span
+                      style={{
+                        display: "inline-block",
+                        width: "-webkit-fill-avaiable",
+                      }}
+                    >
+                      <div
+                        className="current-group"
+                        style={{
+                          padding: "16px 16px 12px",
+                          cursor: "pointer",
+                          backgroundColor: "lightgreen",
+                          borderRadius: "12px",
+                          border: "solid",
+                        }}
+                      >
+                        <div
+                          className="chat-title"
+                          style={{
+                            fontWeight: "400",
+                            paddingBottom: "3px",
+                            overflow: "hidden",
+                          }}
+                        ></div>
+                      </div>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="sdfjosdfaoafoijjk"></div>
+            <div
+              style={{
+                boxSizing: "border-box",
+                minHeight: "1px",
+                position: "relative",
+                width: "50%",
+                flex: "0 0 50",
+                maxWidth: "50%",
+                height: "100vh",
+              }}
+            > 
+            <ChatFeed />
+          
+          
+            </div>
+
             <div className="sdfjosdfaoafoijjk"></div>
           </div>
         </div>

@@ -10,6 +10,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import SearchedMovies from './pages/SearchedMovies';
 import MovieDetails from './pages/MovieDetail';
+import ChatFeed from "./components/ChatFeed";
+
 
 // Construct our main GraphQL API endpoint 
 const httpLink = createHttpLink({
@@ -36,6 +38,8 @@ const client = new ApolloClient({
 });
 
 function App() {
+  if(!localStorage.getItem("username")) return <LoginForm />
+
   return (
     <ApolloProvider client={client}>
       <Router>
