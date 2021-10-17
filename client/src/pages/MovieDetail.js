@@ -5,7 +5,6 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { ADD_MOVIE } from '../utils/mutations';
-import { HandleDetail } from "./SearchedMovies";
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 // import { saveTitle, getSaveTitle } from "../utils/localStorage";
@@ -40,7 +39,7 @@ const DetailedMovies = async (title) => {
     const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI(SearchMovies);
+        const response = await detailAPI();
 
         if (!response.ok) {
             throw new Error('failed to grab')
