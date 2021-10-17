@@ -4,7 +4,7 @@ import App from './App';
 
 require('dotenv').config()
 
-ReactDom.render(
+ReactDOM.render(
     <React.StrictMode>
       <App />
     </React.StrictMode>,
