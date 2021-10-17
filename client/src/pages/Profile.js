@@ -213,7 +213,7 @@ const Profile = () => {
                 height: "100vh",
               }}
             > 
-            <ChatFeed />        
+            {/* <ChatFeed />         */}
             </div>
 
             <div className="deciding if this section is necessary"></div>
