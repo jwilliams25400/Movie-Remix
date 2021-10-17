@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const Movies = require('./Movies');
+const movieSchema = require('./Movies');
 
 const userSchema = new Schema({
   username: {
@@ -21,7 +21,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  newMovie: [Movies],
+  newMovie: [movieSchema],
 },
   {
     toJSON: {
