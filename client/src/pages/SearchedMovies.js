@@ -52,6 +52,7 @@ const SearchMovies = () => {
       const movieData = items.map((movie) => ({
         title: movie.Title,
         poster: movie.Poster,
+        movieId: movie.imdbID
       }));
 
       setSearchedMovies(movieData);
