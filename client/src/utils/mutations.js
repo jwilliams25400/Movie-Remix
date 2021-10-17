@@ -33,6 +33,7 @@ export const ADD_MOVIE = gql`
       newMovie {
         title
         poster
+        movieId
       }
       comments {
         _id

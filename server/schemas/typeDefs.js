@@ -29,6 +29,7 @@ const typeDefs = gql`
   }
 
   input MovieInput {
+    movieId: String!
     title: String!
     poster: String!
     comments: [Comment]
