@@ -1,62 +1,57 @@
-import { useState } from "react";
-import { sendMessage, isTyping} from "react-chat-engine";
-import { SendOutlined, PictureOutlined} from "@ant-design/icons";
+import React, { useState } from "react";
+import { sendMessage, isTyping } from "react-chat-engine";
+import { SendOutlined, PictureOutlined } from "@ant-design/icons";
 
+const MessageForm = (props) => {
+  const [value, setValue] = useState("");
+  const { chatId, creds } = props;
 
-    const MessageForm = (props) => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-        const [value, setValue] = useState("");
-        const {chatId, creds} = props;
+    const text = value.trim();
 
-        const handleSubmit = (event) => {
-            event.preventDefault();
+    if (text.length > 0) sendMessage(creds, chatId, { text });
 
-            const text = value.trim();
+    setValue("");
+  };
 
-            if (text.length > 0) sendMessage(creds, chatId, {text});
+  const handleChange = (event) => {
+    setValue(event.target.value);
 
-            setValue("");
-        }
+    isTyping(props, chatId);
+  };
 
-        const handleChange = (event) => {
-            setValue(event.target.value)
+  const handleUpload = (event) => {
+    sendMessage(creds, chatId, { files: event.target.files, text: "" });
+  };
 
-            isTyping(props, chatId)
-        }   
+  return (
+    <form className="message-form" onSubmit={handleSubmit}>
+      <input
+        className="message-input"
+        placeholder="talk with friends...."
+        value={value}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      />
+      <label htmlfor="upload-btn">
+        <span className="img-btn">
+          <PictureOutlined className="pic-icon" />
+        </span>
+      </label>
+      <input
+        type="file"
+        multiple={false}
+        id="upload-button"
+        style={{ display: "none" }}
+        onChange={handleUpload}
+      />
+      <button type="submit" className="send-btn">
+        <SendOutlined className="send-icon" />
+      </button>
+    </form>
+  );
+};
 
-        const handleUpload = (event) => {
-            sendMessage(creds, chatId, { files: event.target.files, text: ""})
-
-        }
-   
-    return (
-      <form className="message-form" onSubmit={handleSubmit}>
-
-          <input 
-          className="message-input"
-          placeholder="talk with friends...."
-          value={value}
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          />
-          <label htmlfor="upload-btn">
-              <span className="img-btn">
-                  <PictureOutlined className="pic-icon" />
-              </span>
-          </label>
-          <input 
-          type="file"
-          multiple={false}
-          id="upload-button"
-          style={{display: "none"}}
-          onChange={handleUpload}
-          />
-          <button type="submit" className="send-btn">
-              <SendOutlined className="send-icon"/>
-
-          </button>
-      </form>
-    );
-}
-
-export default MessageForm
+export default MessageForm;

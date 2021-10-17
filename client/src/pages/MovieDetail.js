@@ -5,6 +5,7 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { ADD_MOVIE } from '../utils/mutations';
+import { HandleDetail } from "./SearchedMovies";
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 // import { saveTitle, getSaveTitle } from "../utils/localStorage";
@@ -34,7 +35,7 @@ import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 //     }
 // };
 
-const DetailedMovies = async () => {
+const DetailedMovies = async (title) => {
     const [details, setDetails] = useState([]);
     const [trailer, setTrailer] = useState([]);
 
@@ -58,7 +59,7 @@ const DetailedMovies = async () => {
             plot: movie.Plot,
             actors: movie.Actors,
             poster: movie.Poster,
-        }));
+    }));
 
         setDetails(movieData);
     } catch (err) {

@@ -32,6 +32,6 @@ const movieSchema = new Schema({
   ],
 });
 
-const Movies = model('Movies', movieSchema);
+// const Movies = model('Movies', movieSchema);
 
-module.exports = Movies;
+module.exports = movieSchema;
