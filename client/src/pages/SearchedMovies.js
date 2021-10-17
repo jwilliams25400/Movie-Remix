@@ -15,7 +15,6 @@ import {
   Container,
   CardColumns,
 } from "react-bootstrap";
-import DetailedMovies from "./MovieDetail";
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -25,6 +24,8 @@ const SearchMovies = () => {
   const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
   const [addMovie, { error }] = useMutation(ADD_MOVIE);
+
+  const [details, setDetails] = useState([]);
 
   useEffect(() => {
     return () => saveMovieIds(savedMovieIds);
@@ -60,10 +61,39 @@ const SearchMovies = () => {
       console.log("unable to load movies");
     }
   };
-  const DetailedMovies = async (title) => {
+  const handleDetail = async (title) => {
     console.log(title);
-    const movieDetail = await detailAPI(title);
+    // const movieDetail = await detailAPI(title);
 
+    try {
+      const response = await detailAPI(title);
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('failed to grab')
+      }
+
+      const itemsTwo = await response.json();
+      console.log(itemsTwo);
+      // const data = Array.from(itemsTwo);
+      // const data = itemsTwo.split("");
+      const movieDetail = Object.keys(itemsTwo).map((movie) => ({
+        movieId: movie.imdbID,
+        title: movie.Title,
+        director: movie.Director,
+        genre: movie.Genre,
+        released: movie.Released,
+        rated: movie.Rated,
+        rating: movie.Ratings,
+        plot: movie.Plot,
+        actors: movie.Actors,
+        poster: movie.Poster,
+      }));
+      console.log(movieDetail);
+
+      setDetails(movieDetail);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleSaveMovie = async (movieId) => {
@@ -123,45 +153,79 @@ const SearchMovies = () => {
           {searchedMovies.map((movie) => {
             return (
               <Card key={movie.movieId} border="dark">
-                <NavLink to="/MovieDetail" className="detail-btn">
-                  <a href="">
-                    <Card.Title>{movie.title}</Card.Title>
-                    <Container>
-                      {movie.poster ? (
-                        <Card.Img
-                          className="movie-poster"
-                          src={movie.poster}
-                          alt={`The Poster for ${movie.title}`}
-                          variant="top"
-                        />
-                      ) : null}
-                    </Container>
-                  </a>
-                </NavLink>
-                {Auth.loggedIn() && (
-                  <div>
-                    <Button
-                      disabled={savedMovieIds?.some(
-                        (savedMovieId) => savedMovieId === movie.movieId
-                      )}
-                      className="btn-block"
-                      onClick={() => handleSaveMovie(movie.movieId)}
-                    >
-                      {savedMovieIds?.some(
-                        (savedMovieId) => savedMovieId === movie.movieId
-                      )
-                        ? "Movie has been saved previously!"
-                        : "Save this Movie"}
-                    </Button>
-                    <Link
-                      to="/MovieDetail"
-                      className=" btn btn-primary"
-                      onClick={() => DetailedMovies(movie.title)}
-                    >
-                      Details
-                    </Link>
-                  </div>
-                )}
+                <Col xs={12} md={6}>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <Container>
+                    {movie.poster ? (
+                      <Card.Img
+                        className="movie-poster"
+                        src={movie.poster}
+                        alt={`The Poster for ${movie.title}`}
+                        variant="top"
+                      />
+                    ) : null}
+                  </Container>
+                </Col>
+                {details.map((movie) => {
+                  return (
+                    <div>
+                      <div className="text-left">
+                        <Card key={movie.movieId} border='dark'>
+                          <Col xs={12} md={6}>
+                            {movie.image ? (
+                              <Card.Img src={movie.image} alt={`The Poster for ${movie.title}`} variant='top' />
+                            ) : null}
+                            <Card.Body>
+                              <Card.Title>{movie.title}</Card.Title>
+                              <p className='small'>Director(s): {movie.director}</p>
+                              <Card.Text>
+                                Plot: {movie.plot}
+                                Actors: {movie.actors}
+                                Genre: {movie.genre}
+                                Released: {movie.released}
+                                Rated: {movie.rated}
+                                Rating: {movie.rating[0].value}
+                              </Card.Text>
+
+                            </Card.Body>
+                          </Col>
+                        </Card>
+                        {/* {trailer.map((trailer) => {
+                            return (
+                                <div>
+                                    <h1>Movie Trailer</h1>
+                                    <YoutubeEmbed embedId='`${trailer.trailer}`' />
+                                </div>
+                            )
+                        })} */}
+                      </div>
+                    </div>
+                  );
+                })}
+                {
+                  Auth.loggedIn() && (
+                    <div>
+                      <Button
+                        disabled={savedMovieIds?.some(
+                          (savedMovieId) => savedMovieId === movie.movieId
+                        )}
+                        className="btn-block"
+                        onClick={() => handleSaveMovie(movie.movieId)}
+                      >
+                        {savedMovieIds?.some(
+                          (savedMovieId) => savedMovieId === movie.movieId
+                        )
+                          ? "Movie has been saved previously!"
+                          : "Save this Movie"}
+                      </Button>
+                      <Button
+                        onClick={() => handleDetail(movie.title)}
+                      >
+                        Details
+                      </Button>
+                    </div>
+                  )
+                }
               </Card>
             );
           })}

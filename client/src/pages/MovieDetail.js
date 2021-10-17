@@ -5,7 +5,6 @@ import { detailAPI } from '../utils/DETAILAPI';
 import { trailerAPI } from '../utils/YOUTUBEAPI';
 import { useMutation } from '@apollo/client';
 import { ADD_MOVIE } from '../utils/mutations';
-import { HandleDetail } from "./SearchedMovies";
 import SearchMovies from "./SearchedMovies";
 import { YoutubeEmbed } from '../components/YoutubeVid/YoutubeEmbed';
 // import { saveTitle, getSaveTitle } from "../utils/localStorage";
@@ -40,7 +39,7 @@ const DetailedMovies = async (title) => {
     const [trailer, setTrailer] = useState([]);
 
     try {
-        const response = await detailAPI(SearchMovies);
+        const response = await detailAPI();
 
         if (!response.ok) {
             throw new Error('failed to grab')
@@ -84,7 +83,7 @@ const DetailedMovies = async (title) => {
     }
 
     {
-        details.map((movie) => {
+        {details.map((movie) => {
             return (
                 <div>
                     <div className="text-left">
@@ -103,25 +102,7 @@ const DetailedMovies = async (title) => {
                                     Rated: {movie.rated}
                                     Rating: {movie.rating[0].value}
                                 </Card.Text>
-                                {/* {Auth.loggedIn() && (
-                                    // <Button
-                                    //     disabled={savedmovieIds?.some((savedBookId) => savedBookId === book.bookId)}
-                                    //     className='btn-block btn-info'
-                                    //     onClick={() => handleSaveMovie(book.bookId)}>
-                                    //     {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                    //         ? 'This book has already been saved!'
-                                    //         : 'Save movie Book!'}
-                                    // </Button>
-                                    // <button disabled={saveTitle?.some(
-                                    //     (saveTitle) => saveTitle === movie.title)}
-                                    //     className="btn-block"
-                                    //     onClick={() => HandleSaveMovie(movie.title)}>
-                                    //     {saveTitle?.some((saveTitle) =>
-                                    //         saveTitle === movie.title)
-                                    //         ? "Movie has been saved previously!"
-                                    //         : "Save this Movie"}
-                                    // </button>
-                                )} */}
+                                
                             </Card.Body>
                         </Card>
                         {trailer.map((trailer) => {
@@ -135,7 +116,7 @@ const DetailedMovies = async (title) => {
                     </div>
                 </div>
             );
-        })
+        })}
     };
 };
 export default DetailedMovies;
