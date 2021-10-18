@@ -79,19 +79,20 @@ const SearchMovies = () => {
       console.log(itemsTwo);
       // const data = Array.from(itemsTwo);
       // const data = itemsTwo.split("");
-      const movieDetail = Object.keys(itemsTwo).map((movie) => ({
-        movieId: movie.imdbID,
-        title: movie.Title,
-        director: movie.Director,
-        genre: movie.Genre,
-        released: movie.Released,
-        rated: movie.Rated,
-        rating: movie.Ratings,
-        plot: movie.Plot,
-        actors: movie.Actors,
-        poster: movie.Poster,
-      }));
-      console.log(movieDetail);
+      // const movieDetail = Object.keys(itemsTwo).map((movie) => ({
+      //   movieId: movie.imdbID,
+      //   title: movie.Title,
+      //   director: movie.Director,
+      //   genre: movie.Genre,
+      //   released: movie.Released,
+      //   rated: movie.Rated,
+      //   rating: movie.Ratings,
+      //   plot: movie.Plot,
+      //   actors: movie.Actors,
+      //   poster: movie.Poster,
+      // }));
+      // console.log(movieDetail);
+      const movieDetail = [itemsTwo]
 
       setDetails(movieDetail);
     } catch (err) {
@@ -179,15 +180,15 @@ const SearchMovies = () => {
                               <Card.Img src={movie.image} alt={`The Poster for ${movie.title}`} variant='top' />
                             ) : null}
                             <Card.Body>
-                              <Card.Title>{movie.title}</Card.Title>
-                              <p className='small'>Director(s): {movie.director}</p>
+                              <Card.Title>{movie.Title}</Card.Title>
+                              <p className='small'>Director(s): {movie.Director}</p>
                               <Card.Text>
-                                Plot: {movie.plot}
-                                Actors: {movie.actors}
-                                Genre: {movie.genre}
-                                Released: {movie.released}
-                                Rated: {movie.rated}
-                                Rating: {movie.rating[0].value}
+                               {` Plot: ${movie.Plot}
+                                Actors: ${movie.Actors}
+                                Genre: ${movie.Genre}
+                                Released: ${movie.Released}
+                                Rated: ${movie.Rated}
+                                `}
                               </Card.Text>
 
                             </Card.Body>
