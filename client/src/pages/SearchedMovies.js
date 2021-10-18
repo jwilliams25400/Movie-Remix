@@ -224,6 +224,7 @@ const SearchMovies = () => {
                       </Button>
                       <Button
                         onClick={() => handleDetail(movie.title)}
+                        className="btn-block"
                       >
                         Details
                       </Button>
