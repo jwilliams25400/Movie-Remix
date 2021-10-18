@@ -15,6 +15,8 @@ import {
   Container,
   CardColumns,
 } from "react-bootstrap";
+import { ChatEngineWrapper, ChatSocket, ChatFeed } from "react-chat-engine";
+const chatEng = process.env.REACT_APP_CHATENGINE
 
 const SearchMovies = () => {
   const [searchedMovies, setSearchedMovies] = useState([]);
@@ -232,6 +234,21 @@ const SearchMovies = () => {
           })}
         </CardColumns>
       </Container>
+      <div>
+        <Col xs={11} ms={8} md={6} lg={4}>
+          <ChatEngineWrapper>
+            <ChatSocket
+            projectID="a21f0c74-83f4-4fa8-becc-d97091a24144"
+            chatID={chatEng}
+            userName={localStorage.getItem("username")}
+            userSecret={localStorage.getItem("password")}
+            />
+
+            <ChatFeed activeChat={chatEng} />
+          </ChatEngineWrapper>
+        </Col>
+
+      </div>
     </>
   );
 };

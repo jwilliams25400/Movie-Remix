@@ -14,6 +14,7 @@ import { REMOVE_MOVIE } from "../utils/mutations";
 
 import Auth from "../utils/auth";
 import { removeMovieId } from "../utils/localStorage";
+import { ChatEngine } from "react-chat-engine";
 
 const Profile = () => {
   const { loading, data } = useQuery(QUERY_ME);
@@ -86,138 +87,13 @@ const Profile = () => {
               })}
             </CardColumns>
           </Container>
-          <div
-            style={{
-              marginLeft: "0",
-              marginRight: "0",
-              display: "flex",
-              flexFlow: "row-wrap",
-              flexGrow: "0",
-              flexShrink: "0",
-              alignItem: "normal",
-              justifyContent: "flex-start",
-            }}
-          >
-            <div
-              style={{
-                position: "relative",
-                width: "25",
-                paddingLeft: "0",
-                paddingRight: "0",
-                height: "100vh",
-                boxSizing: "border-box",
-              }}
-            >
-              <div
-                className="chat-groups"
-                style={{
-                  maxHeight: "100vh",
-                  overflow: "hidden, scroll",
-                  borderRight: "1px solid",
-                  backgroundColor: "white",
-                }}
-              >
-                <div
-                  className="chat-container"
-                  style={{
-                    width: "100",
-                    height: "100",
-                    borderRadius: "0px 0px 24px 24px",
-                  }}
-                >
-                  <div>
-                    <div
-                      className="new-chat"
-                      style={{
-                        padding: "16px 14px",
-                        marginLeft: "0px",
-                      }}
-                    >
-                      <div>
-                        <div style={{ height: "0" }}>
-                          <div
-                            style={{
-                              fontWeight: "500",
-                              fontSize: "24px",
-                              position: "relative",
-                              top: "4px",
-                              width: "50",
-                            }}
-                          >
-                            My Groups
-                          </div>
-                        </div>
+          <ChatEngine
+          projectID="a21f0c74-83f4-4fa8-becc-d97091a24144"
+          userName={localStorage.getItem("username")}
+          userSecret={localStorage.getItem("password")}
+          height="calc (100vh-20px)"
+          />
 
-                        <div style={{ maxWidth: "100", textAlign: "right" }}>
-                          <button
-                            id="new-chat"
-                            className="primary-btn"
-                            style={{
-                              height: "36px",
-                              fontSize: "15px",
-                              cursor: "pointer",
-                              padding: "8px 16px",
-                              borderRadius: "33px",
-                              backgroundColor: "blue",
-                            }}
-                          >
-                            <span role="img" aria-label="plus">
-                              +
-                            </span>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        width: "-webkit-fill-avaiable",
-                      }}
-                    >
-                      <div
-                        className="current-group"
-                        style={{
-                          padding: "16px 16px 12px",
-                          cursor: "pointer",
-                          backgroundColor: "lightgreen",
-                          borderRadius: "12px",
-                          border: "solid",
-                        }}
-                      >
-                        <div
-                          className="chat-title"
-                          style={{
-                            fontWeight: "400",
-                            paddingBottom: "3px",
-                            overflow: "hidden",
-                          }}
-                        ></div>
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                boxSizing: "border-box",
-                minHeight: "1px",
-                position: "relative",
-                width: "50%",
-                flex: "0 0 50",
-                maxWidth: "50%",
-                height: "100vh",
-              }}
-            > 
-            {/* <ChatFeed />         */}
-            </div>
-
-            <div className="deciding if this section is necessary"></div>
-          </div>
         </div>
       </div>
     </>

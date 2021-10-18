@@ -33,12 +33,7 @@ export const QUERY_SINGLE_MOVIE = gql`
       _id
       title
       director
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
+     
     }
   }
 `;
@@ -52,7 +47,7 @@ export const QUERY_ME = gql`
       newMovie {
         title
         poster
-        comments
+      
       }
     }
   }

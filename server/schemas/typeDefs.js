@@ -10,19 +10,12 @@ const typeDefs = gql`
   }
 
   type Movie {
-    _id: ID
+    movieId: String
     title: String!
     poster: String
-    comments: __Type
-  }
+      }
 
-  input Comment {
-    _id: ID
-    commentText: String!
-    commentAuthor: String!
-    createdAt: String!
-  }
-
+  
   type Auth {
     token: ID!
     user: User
@@ -32,7 +25,6 @@ const typeDefs = gql`
     movieId: String!
     title: String!
     poster: String!
-    comments: [Comment]
   }
 
   type Query {
@@ -47,10 +39,8 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addMovie(movieData: MovieInput!): User
-    addComment(movieId: ID!, commentText: String!): Movie
     removeMovie(movieId: ID!): Movie
-    removeComment(movieId: ID!, commentId: ID!): Movie
-  }
+    }
 `;
 
 module.exports = typeDefs;

@@ -61,23 +61,7 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
-    addComment: async (parent, { movieId, commentText }, context) => {
-      if (context.user) {
-        return Movies.findOneAndUpdate(
-          { _id: movieId },
-          {
-            $addToSet: {
-              comments: { commentText, commentAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
+
     removeMovie: async (parent, { movieId }, context) => {
       if (context.user) {
         const movie = await Movies.findOneAndDelete({
@@ -91,23 +75,6 @@ const resolvers = {
         );
 
         return movie;
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-    removeComment: async (parent, { thoughtId, commentId }, context) => {
-      if (context.user) {
-        return Movies.findOneAndUpdate(
-          { _id: movieId },
-          {
-            $pull: {
-              comments: {
-                _id: commentId,
-                commentAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
       }
       throw new AuthenticationError('You need to be logged in!');
     },
