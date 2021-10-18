@@ -25,4 +25,4 @@ No Test Given
 If you are interested in contacting me my GitHub profile is [Trgrf](https://github.com/Trgrf). <br />
 My email is [adamgonzalez1000@gmail.com](mailto:adamgonzalez1000@gmail.com).
 ## Deployed Link
-Here is a link to our deployed application .
+Here is a link to our deployed application https://movie-informer-acj.herokuapp.com/.
