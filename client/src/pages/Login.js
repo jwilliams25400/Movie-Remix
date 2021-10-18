@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 
-// import axios from "axios";
-
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from "../utils/mutations";
 
 import Auth from '../utils/auth';
 
+const chatEng = process.env.REACT_APP_CHATENGINE
+
 const LoginForm = () => {
+  //  const [username, setUsename] = useState("");
+  // const [password, setPassword] = useState("");
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -37,6 +39,23 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
+
+    const authObject = {
+      "Project-ID": "a21f0c74-83f4-4fa8-becc-d97091a24144",
+      // "User-Name": username,
+      // "User-Secret": password 
+    };
+
+    try {
+      const response = await chatEng(authObject);
+      console.log(response);
+      if (!response) {
+        throw new Error("Invalid Credentials");
+      };
+    } catch(error) {
+      console.log(error);
+    }
+
 
     try {
       const { data } = await login({
