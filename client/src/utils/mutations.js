@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -35,12 +35,6 @@ export const ADD_MOVIE = gql`
         poster
         movieId
       }
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
     }
   }
 `;
@@ -51,40 +45,6 @@ export const REMOVE_MOVIE = gql`
       _id
       title
       poster
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment($movieId: ID!, $commentText: String!) {
-    addComment(movieId: $movieId, commentText: $commentText) {
-      _id
-      title
-      poster
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
-  }
-`;
-
-export const REMOVE_COMMENT = gql`
-  mutation removeComment($movieId: ID!, $commentId: ID!) {
-    removeComment(movieID: $movieId, commentId: $commentId) {
-      _id
-      title
-      poster
-      comments {
-        _id
-        commentText
-        createdAt
-      }
     }
   }
 `;

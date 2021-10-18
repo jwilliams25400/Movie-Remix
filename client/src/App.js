@@ -60,7 +60,7 @@ function App() {
             <Route exact path="/profiles/:username">
               <Profile />
             </Route>
-            <Route exact path='/MovieDetail' component={MovieDetails} />
+            {/* <Route exact path='/MovieDetail' component={MovieDetails} /> */}
           </div>
           <Footer />
         </div>

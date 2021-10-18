@@ -17,7 +17,7 @@ const Footer = () => {
           </button>
         )}
 
-        <Card style={{ width: '18rem' }}>
+      <Card className="sticky-bottom" style={{ width:'100%'}}>
   <Card.Body>
     <Card.Title>Meet our Development Team</Card.Title>
     <Card.Subtitle className="mb-2 text-muted">Christian Colon</Card.Subtitle>
